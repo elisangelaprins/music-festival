@@ -21,6 +21,11 @@ public abstract class Pessoa {
         setNome(nome);
         setDocumento(documento);
         setAnoNascimento(anoNascimento);
+
+        // para o contador sempre iniciar pelo ultimo id existente
+        if (id >= contadorId) {
+            contadorId = id + 1;
+        }
     }
 
     public int getId() {
