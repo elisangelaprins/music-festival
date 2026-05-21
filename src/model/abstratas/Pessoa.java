@@ -72,5 +72,9 @@ public abstract class Pessoa {
         return anoAtual - anoNascimento;
     }
 
+    public String getTipo() {
+        return "Pessoa";
+    }
+
     public abstract void exibirDetalhes();
 }
