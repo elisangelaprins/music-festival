@@ -75,4 +75,9 @@ public abstract class Pessoa {
     public abstract String getTipo();
 
     public abstract void exibirDetalhes();
+
+    @Override
+    public String toString() {
+        return getTipo() + " | ID: " + id + " | Nome: " + nome + " | Documento: " + documento;
+    }
 }
