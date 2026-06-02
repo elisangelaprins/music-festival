@@ -1,28 +1,30 @@
 package model.abstratas;
 
-public abstract class Pessoa {
+import java.io.Serializable;
+import model.enums.TipoDocumento;
+
+public abstract class Pessoa implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int id;
     private String nome;
+    private TipoDocumento tipoDocumento;
     private String documento;
-    private int anoNascimento;
     private static int contadorId = 1;
 
-    //Construtor para cadastro de Pessoa
-    public Pessoa(String nome, String documento, int anoNascimento) {
+    public Pessoa(String nome, TipoDocumento tipoDocumento, String documento) {
         this.id = contadorId++;
         setNome(nome);
+        setTipoDocumento(tipoDocumento);
         setDocumento(documento);
-        setAnoNascimento(anoNascimento);
     }
 
-    //Construtor de sobrecarga para o sistema ler uma pessoa pelo (TXT/JSON)
-    public Pessoa(int id, String nome, String documento, int anoNascimento) {
-        setId(id); // Usa o ID que veio do arquivo
+    public Pessoa(int id, String nome, TipoDocumento tipoDocumento, String documento) {
+        setId(id);
         setNome(nome);
+        setTipoDocumento(tipoDocumento);
         setDocumento(documento);
-        setAnoNascimento(anoNascimento);
 
-        // para o contador sempre iniciar pelo ultimo id existente
         if (id >= contadorId) {
             contadorId = id + 1;
         }
@@ -32,20 +34,15 @@ public abstract class Pessoa {
         return id;
     }
 
-    public void setId(int id) {
-        if (id > 0) {
-            this.id = id;
-        }
-    }
-
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
-        if (!nome.isEmpty()) {
-            this.nome = nome;
+        if (nome == null || nome.isEmpty()) {
+            throw new IllegalArgumentException("Nome não pode ser vazio.");
         }
+        this.nome = nome;
     }
 
     public String getDocumento() {
@@ -53,31 +50,64 @@ public abstract class Pessoa {
     }
 
     public void setDocumento(String documento) {
-        if (!documento.isEmpty()) {
-            this.documento = documento;
+        if(documento == null || documento.isEmpty()) {
+            throw new IllegalArgumentException("Documento não pode ser vazio.");
         }
-    }
 
-    public int getAnoNascimento() {
-        return anoNascimento;
-    }
-
-    public void setAnoNascimento(int anoNascimento) {
-        if (anoNascimento >= 0) {
-            this.anoNascimento = anoNascimento;
+        if(this.tipoDocumento != null && this.tipoDocumento == TipoDocumento.CPF && documento.length() != 11){
+            throw new IllegalArgumentException("CPF deve conter exatamente 11 dígitos.");
         }
+
+        if (this.tipoDocumento != null && this.tipoDocumento == TipoDocumento.PASSAPORTE && documento.length() != 8) {
+            throw new IllegalArgumentException("Passaporte deve conter exatamente 8 caracteres.");
+        }
+
+        this.documento = documento;
     }
 
-    public int calcularIdade(int anoAtual){
-        return anoAtual - anoNascimento;
+    public TipoDocumento getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+        if (tipoDocumento == null) {
+            throw new IllegalArgumentException("Tipo de documento não pode ser vazio.");
+        }
+        this.tipoDocumento = tipoDocumento;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if(!(obj instanceof Pessoa)) {
+            return false;
+        }
+
+        Pessoa outro = (Pessoa) obj;
+        return documento.equals(outro.documento);
+    }
+
+    @Override
+    public int hashCode() {
+        return documento.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return getTipo() + " | ID: " + id + " | Nome: " + nome + "\n" + tipoDocumento.name() +": " + documento;
+    }
+
+    private void setId(int id){
+        if (id <= 0) {
+            throw new IllegalArgumentException("ID inválido.");
+        }
+        this.id = id;
     }
 
     public abstract String getTipo();
 
     public abstract void exibirDetalhes();
-
-    @Override
-    public String toString() {
-        return getTipo() + " | ID: " + id + " | Nome: " + nome + " | Documento: " + documento;
-    }
 }
