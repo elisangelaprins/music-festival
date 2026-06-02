@@ -1,4 +1,9 @@
 package model.interfaces;
 
-public class RelatorioGeravel {
+public interface RelatorioGeravel {
+
+    String gerarRelatorio();
+
+    void exportarRelatorio(String nomeArquivo);
+
 }
