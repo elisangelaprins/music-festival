@@ -30,12 +30,16 @@ public class PatrocinadorController {
         return null;
     }
 
-    public boolean atualizarCategoria(int id, String categoria) {
+    public boolean atualizarCategoria(int id, String nome, String cnpj, double valorPatrocinio, String categoria) {
 
         Patrocinador patrocinador = buscarPatrocinador(id);
 
         if (patrocinador != null) {
+            patrocinador.setNome(nome);
+            patrocinador.setCnpj(cnpj);
+            patrocinador.setValorPatrocinio(valorPatrocinio);
             patrocinador.setCategoria(categoria);
+
             return true;
         }
 
@@ -52,6 +56,17 @@ public class PatrocinadorController {
         }
 
         return false;
+    }
+
+    public double calcularTotalPatrocinio() {
+
+        double total = 0;
+
+        for (Patrocinador patrocinador : patrocinadores) {
+            total += patrocinador.getValorPatrocinio();
+        }
+
+        return total;
     }
 
 

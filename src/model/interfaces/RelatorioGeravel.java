@@ -4,6 +4,6 @@ public interface RelatorioGeravel {
 
     String gerarRelatorio();
 
-    void exportarRelatorio(String nomeArquivo);
+    void exportarRelatorio();
 
 }
