@@ -1,6 +1,10 @@
 package model;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+import model.enums.CategoriaPatrocinio;
 import model.interfaces.RelatorioGeravel;
+import util.ArquivoUtil;
 
 public class Patrocinador  implements RelatorioGeravel, Serializable{
    private static final long serialVersionUID = 1L;
@@ -11,10 +15,10 @@ public class Patrocinador  implements RelatorioGeravel, Serializable{
    private String nome;
    private String cnpj;
    private double valorPatrocinio;
-   private String categoria;
+   private CategoriaPatrocinio categoria;
 
 
-    public Patrocinador(String nome, String cnpj, double valorPatrocinio, String categoria) {
+    public Patrocinador(String nome, String cnpj, double valorPatrocinio, CategoriaPatrocinio categoria) {
         this.id = contadorId++;
 
         setNome(nome);
@@ -24,7 +28,7 @@ public class Patrocinador  implements RelatorioGeravel, Serializable{
 
     }
 
-    public Patrocinador(int id, String nome, String cnpj, double valorPatrocinio, String categoria) {
+    public Patrocinador(int id, String nome, String cnpj, double valorPatrocinio, CategoriaPatrocinio categoria) {
         this.id = id;
         setNome(nome); setCnpj(cnpj);
         setValorPatrocinio(valorPatrocinio);
@@ -52,7 +56,7 @@ public class Patrocinador  implements RelatorioGeravel, Serializable{
         return valorPatrocinio;
     }
 
-    public String getCategoria() {
+    public CategoriaPatrocinio getCategoria() {
         return categoria;
     }
 
@@ -79,8 +83,8 @@ public class Patrocinador  implements RelatorioGeravel, Serializable{
 
 
 
-    public void setCategoria(String categoria) {
-        if (categoria == null || categoria.isEmpty()) {
+    public void setCategoria(CategoriaPatrocinio categoria) {
+        if (categoria == null) {
             throw new IllegalArgumentException("Categoria inválida");
         }
         this.categoria = categoria;
@@ -93,6 +97,11 @@ public class Patrocinador  implements RelatorioGeravel, Serializable{
 
     @Override
     public void exportarRelatorio() {
+        Map<Integer, Patrocinador> dados = new HashMap<>();
+
+        dados.put(id, this);
+
+        ArquivoUtil.salvarArquivo(dados, "relatorioPatrocinador.dat");
 
     }
 
