@@ -18,7 +18,7 @@ public class LogUtil {
 
             FileWriter writer = new FileWriter(ARQUIVO, true);
             LocalDateTime agora = LocalDateTime.now();
-            String linha = "[" + agora + "] [" + tipo + "] " + mensagem + "\n";
+            String linha = "[" + agora + "] " + tipo + " - " + mensagem + "\n";
 
             writer.write(linha);
             writer.close();
