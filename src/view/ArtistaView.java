@@ -92,6 +92,11 @@ public class ArtistaView {
         return scanner.nextLine();
     }
 
+    public String lerNomeBusca() {
+        System.out.println("Informe o nome ou nome artístico: ");
+        return scanner.nextLine();
+    }
+
     public String lerGeneroMusical() {
         System.out.println("Informe o gênero musical: ");
         return scanner.nextLine();

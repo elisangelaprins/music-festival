@@ -7,7 +7,6 @@ import util.ArquivoUtil;
 import util.LogUtil;
 import util.TipoLog;
 import view.ArtistaView;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.Map;
 
 public class ArtistaController {
     private static final String ARQUIVO = "artistas.dat";
-    private ArtistaView view;
+    private final ArtistaView view;
     private HashMap<Integer, Artista> artistas;
 
     public ArtistaController(ArtistaView view) {
@@ -69,6 +68,31 @@ public class ArtistaController {
         }
     }
 
+    public void listarArtistas() {
+        view.exibirArtistas(getArtistas());
+    }
+
+    public void buscarPorNome(){
+        String nome = view.lerNomeBusca();
+
+        List<Artista> encontrados = new ArrayList<>();
+
+        for (Artista a : artistas.values()) {
+            if (a.getNome().equalsIgnoreCase(nome) || a.getNomeArtistico().equalsIgnoreCase(nome)) {
+                encontrados.add(a);
+            }
+        }
+
+        if (encontrados.isEmpty()) {
+            view.mostrarMensagem("Nenhum artista encontrado.");
+            return;
+        }
+
+        LogUtil.log(TipoLog.INFO, "Busca por nome realizada: " + nome);
+
+        view.exibirArtistas(encontrados);
+    }
+
     public List<Artista> getArtistas() {
         return new ArrayList<>(artistas.values());
     }
@@ -82,10 +106,6 @@ public class ArtistaController {
         }
 
         return artista;
-    }
-
-    public void listarArtistas() {
-        view.exibirArtistas(getArtistas());
     }
 
     public void alterarArtista() {
