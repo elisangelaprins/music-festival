@@ -31,33 +31,33 @@ public class MenuPrincipalView {
                 case 1:
                     menuArtista();
                     break;
-                case 2:
-                    menuApresentacao();
-                    break;
-                case 3:
-                    menuPalco();
-                    break;
-                case 4:
-                    menuAgenda();
-                    break;
-                case 5:
-                    menuVisitante();
-                    break;
-                case 6:
-                    menuIngresso();
-                    break;
-                case 7:
-                    menuStaff();
-                    break;
-                case 8:
-                    menuCredencial();
-                    break;
-                case 9:
-                    menuPatrocinador();
-                    break;
-                case 10:
-                    menuRelatorio();
-                    break;
+//                case 2:
+//                    menuApresentacao();
+//                    break;
+//                case 3:
+//                    menuPalco();
+//                    break;
+//                case 4:
+//                    menuAgenda();
+//                    break;
+//                case 5:
+//                    menuVisitante();
+//                    break;
+//                case 6:
+//                    menuIngresso();
+//                    break;
+//                case 7:
+//                    menuStaff();
+//                    break;
+//                case 8:
+//                    menuCredencial();
+//                    break;
+//                case 9:
+//                    menuPatrocinador();
+//                    break;
+//                case 10:
+//                    menuRelatorio();
+//                    break;
                 case 0:
                     LogUtil.log(TipoLog.INFO, "Sistema encerrado pelo usuário.");
                     System.out.println("Encerrando...");
