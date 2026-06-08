@@ -29,21 +29,35 @@ public class MenuPrincipalView {
 
             switch (opcao) {
                 case 1:
-                    artistaController.cadastrarArtista();
+                    menuArtista();
                     break;
-
                 case 2:
-                    artistaController.listarArtistas();
+                    menuApresentacao();
                     break;
-
                 case 3:
-                    artistaController.alterarArtista();
+                    menuPalco();
                     break;
-
                 case 4:
-                    artistaController.removerArtista();
+                    menuAgenda();
                     break;
-
+                case 5:
+                    menuVisitante();
+                    break;
+                case 6:
+                    menuIngresso();
+                    break;
+                case 7:
+                    menuStaff();
+                    break;
+                case 8:
+                    menuCredencial();
+                    break;
+                case 9:
+                    menuPatrocinador();
+                    break;
+                case 10:
+                    menuRelatorio();
+                    break;
                 case 0:
                     LogUtil.log(TipoLog.INFO, "Sistema encerrado pelo usuário.");
                     System.out.println("Encerrando...");
@@ -57,12 +71,56 @@ public class MenuPrincipalView {
     }
 
     private void exibirMenu() {
-        System.out.println("--- MENU ---");
-        System.out.println("1 - Cadastrar Artista");
-        System.out.println("2 - Listar Artista");
-        System.out.println("3 - Alterar Artista");
-        System.out.println("4 - Remover Artista");
+        System.out.println("=== FESTIVAL DE MÚSICA ===");
+        System.out.println("1 - Artistas");
+        System.out.println("2 - Apresentações");
+        System.out.println("3 - Palcos");
+        System.out.println("4 - Agenda");
+        System.out.println("5 - Visitante");
+        System.out.println("6 - Ingresso");
+        System.out.println("7 - Staff");
+        System.out.println("8 - Credencial");
+        System.out.println("9 - Patrocinador");
+        System.out.println("10 - Relatório");
         System.out.println("0 - Sair");
+    }
+
+    private void menuArtista() {
+        int opcao;
+        do {
+            System.out.println("=== ARTISTAS ===");
+            System.out.println("1 - Cadastrar artista");
+            System.out.println("2 - Listar artistas");
+            System.out.println("3 - Buscar artista pelo Nome");
+            System.out.println("4 - Alterar artista");
+            System.out.println("5 - Remover artista");
+            System.out.println("0 - Voltar ao menu inicial");
+
+            opcao = lerOpcao();
+            limparBuffer();
+
+            switch (opcao) {
+                case 1:
+                    artistaController.cadastrarArtista();
+                    break;
+                case 2:
+                    artistaController.listarArtistas();
+                    break;
+                case 3:
+                    artistaController.buscarPorNome();
+                    break;
+                case 4:
+                    artistaController.alterarArtista();
+                    break;
+                case 5:
+                    artistaController.removerArtista();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opção inválida");
+            }
+        } while (opcao != 0);
     }
 
     private int lerOpcao() {
