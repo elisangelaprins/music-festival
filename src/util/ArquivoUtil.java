@@ -23,7 +23,8 @@ public class ArquivoUtil {
             gravar.close();
 
         } catch (IOException e) {
-            System.out.println("Erro ao salvar arquivo: " + e.getMessage());
+            LogUtil.log(TipoLog.ERRO, "Erro ao salvar arquivo: " + e.getMessage());
+            System.out.println("Erro ao salvar arquivo.");
         }
     }
 
@@ -42,7 +43,8 @@ public class ArquivoUtil {
             }
 
         } catch (Exception e) {
-            System.out.println("Erro ao carregar arquivo: " + e.getMessage());
+            LogUtil.log(TipoLog.ERRO, "Erro ao carregar arquivo: " + e.getMessage());
+            System.out.println("Erro ao carregar arquivo.");
         }
 
         return null;
