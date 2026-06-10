@@ -123,6 +123,11 @@ public class MenuPrincipalView {
         } while (opcao != 0);
     }
 
+    private void menuPatrocinador() {
+        PatrocinadorView patrocinadorView = new PatrocinadorView();
+        patrocinadorView.menu();
+    }
+
     private int lerOpcao() {
         System.out.println("Escolha: ");
         return scanner.nextInt();
