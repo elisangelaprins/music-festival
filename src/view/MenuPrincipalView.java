@@ -1,5 +1,5 @@
 package view;
-
+import controller.PatrocinadorController;
 import controller.ArtistaController;
 import util.LogUtil;
 import util.TipoLog;
@@ -9,11 +9,15 @@ import java.util.Scanner;
 public class MenuPrincipalView {
     private final Scanner scanner;
     private final ArtistaController artistaController;
+    private final PatrocinadorController patrocinadorController;
 
     public MenuPrincipalView() {
         scanner = new Scanner(System.in);
         ArtistaView artistaView = new ArtistaView();
         this.artistaController = new ArtistaController(artistaView);
+
+        PatrocinadorView patrocinadorView = new PatrocinadorView();
+        this.patrocinadorController = new PatrocinadorController(patrocinadorView);
     }
 
 
@@ -115,6 +119,50 @@ public class MenuPrincipalView {
                 case 5:
                     artistaController.removerArtista();
                     break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opção inválida");
+            }
+        } while (opcao != 0);
+    }
+
+    private void menuPatrocinador() {
+        int opcao;
+
+        do {
+            System.out.println("=== PATROCINADORES ===");
+            System.out.println("1 - Cadastrar patrocinador");
+            System.out.println("2 - Listar patrocinadores");
+            System.out.println("3 - Alterar patrocinador");
+            System.out.println("4 - Remover patrocinador");
+            System.out.println("5 - Exibir Total Patrocinado");
+            System.out.println("0 - Voltar ao menu inicial");
+
+            opcao = lerOpcao();
+            limparBuffer();
+
+            switch (opcao) {
+                case 1:
+                    patrocinadorController.cadastrarPatrocinador();
+                    break;
+
+                case 2:
+                    patrocinadorController.listarPatrocinadores();
+                    break;
+
+                case 3:
+                    patrocinadorController.alterarPatrocinador();
+                    break;
+
+                case 4:
+                    patrocinadorController.removerPatrocinador();
+                    break;
+
+                case 5:
+                    patrocinadorController.mostrarTotalPatrocinado();
+                    break;
+
                 case 0:
                     break;
                 default:
