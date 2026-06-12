@@ -1,6 +1,7 @@
 package view;
 import controller.PatrocinadorController;
 import controller.ArtistaController;
+import controller.RelatorioController;
 import util.LogUtil;
 import util.TipoLog;
 
@@ -10,6 +11,7 @@ public class MenuPrincipalView {
     private final Scanner scanner;
     private final ArtistaController artistaController;
     private final PatrocinadorController patrocinadorController;
+    private RelatorioController relatorioController;
 
     public MenuPrincipalView() {
         scanner = new Scanner(System.in);
@@ -18,6 +20,9 @@ public class MenuPrincipalView {
 
         PatrocinadorView patrocinadorView = new PatrocinadorView();
         this.patrocinadorController = new PatrocinadorController(patrocinadorView);
+
+        RelatorioView relatorioView = new RelatorioView();
+        this.relatorioController = new RelatorioController(relatorioView);
     }
 
 
@@ -167,6 +172,68 @@ public class MenuPrincipalView {
                     break;
                 default:
                     System.out.println("Opção inválida");
+            }
+        } while (opcao != 0);
+    }
+
+    private void menuRelatorio() {
+        int opcao;
+        do {
+            System.out.println("\n=== MENU DE RELATÓRIOS ===");
+            System.out.println("1 - Relatório de Patrocinadores");
+            System.out.println("2 - Relatório de Artistas");
+            System.out.println("3 - Relatório de Agendas");
+            System.out.println("4 - Relatório de Apresentações");
+            System.out.println("5 - Relatório de Credenciais");
+            System.out.println("6 - Relatório de Entrevistas");
+            System.out.println("7 - Relatório de Ingressos");
+            System.out.println("8 - Relatório de Palcos");
+            System.out.println("9 - Relatório de Shows");
+            System.out.println("10 - Relatório de Staffs");
+            System.out.println("11 - Relatório de Visitantes");
+            System.out.println("0 - Voltar ao menu inicial");
+
+            opcao = lerOpcao();
+            limparBuffer();
+
+            switch (opcao) {
+                case 1:
+                    relatorioController.gerarRelatorioDoMenu("Relatório de Patrocinadores", patrocinadorController.getPatrocinadores());
+                    break;
+                case 2:
+                    relatorioController.gerarRelatorioDoMenu("Relatório de Artistas", artistaController.getArtistas());
+                    break;
+                case 3:
+                    relatorioController.gerarRelatorioDoMenu("Relatório de Agendas", agendaController.getAgendas());
+                    break;
+                case 4:
+                    relatorioController.gerarRelatorioDoMenu("Relatório de Apresentações", apresentacaoController.getApresentacoes());
+                    break;
+                case 5:
+                    relatorioController.gerarRelatorioDoMenu("Relatório de Credenciais", credencialController.getCredenciais());
+                    break;
+                case 6:
+                    relatorioController.gerarRelatorioDoMenu("Relatório de Entrevistas", entrevistaController.getEntrevistas());
+                    break;
+                case 7:
+                    relatorioController.gerarRelatorioDoMenu("Relatório de Ingressos", ingressoController.getIngressos());
+                    break;
+                case 8:
+                    relatorioController.gerarRelatorioDoMenu("Relatório de Palcos", palcoController.getPalcos());
+                    break;
+                case 9:
+                    relatorioController.gerarRelatorioDoMenu("Relatório de Shows", showController.getShows());
+                    break;
+                case 10:
+                    relatorioController.gerarRelatorioDoMenu("Relatório de Staffs", staffController.getStaffs());
+                    break;
+                case 11:
+                    relatorioController.gerarRelatorioDoMenu("Relatório de Visitantes", visitanteController.getVisitantes());
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
             }
         } while (opcao != 0);
     }
