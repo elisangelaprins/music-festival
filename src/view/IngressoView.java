@@ -61,6 +61,10 @@ public class IngressoView {
         System.out.print("Informe o RGM do visitante: ");
         return scanner.nextLine();
     }
+    public double lerTaxaVip() {
+        System.out.print("Informe a taxa do ingresso VIP: ");
+        return scanner.nextDouble();
+    }
 
     public void exibirIngressos(List<Ingresso> ingressos) {
         if (ingressos.isEmpty()) {

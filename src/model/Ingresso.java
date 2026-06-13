@@ -24,7 +24,8 @@ public class Ingresso implements Serializable {
         setValor(valor);
         setValorFinal(valorFinal);
         setRgm("Sem relevância.");
-        this.id = contadorId++;
+        this.id = contadorId;
+        contadorId++;
     }
     public Ingresso(TipoIngresso tipoIngresso, Visitante visitante, Apresentacao apresentacao, double valor, double valorFinal, String rgm) {
         setTipoIngresso(tipoIngresso);
@@ -33,7 +34,8 @@ public class Ingresso implements Serializable {
         setValor(valor);
         setValorFinal(valorFinal);
         setRgm(rgm);
-        this.id = contadorId++;
+        this.id = contadorId;
+        contadorId++;
     }
 
     public void setTipoIngresso(TipoIngresso tipoIngresso) {
@@ -68,8 +70,8 @@ public class Ingresso implements Serializable {
     }
 
     public void setRgm(String rgm) {
-        if (rgm.isEmpty() || rgm == null) {
-
+        if (rgm.isEmpty()) {
+            throw new IllegalArgumentException("RGM não pode ser nulo.");
         }
         this.rgm = rgm;
     }
@@ -109,9 +111,9 @@ public class Ingresso implements Serializable {
 
     public void exibirDetalhes() {
         System.out.println("\n--------------------------------");
-        System.out.println("INGRESSO ("+getTipoIngresso()+")");
+        System.out.print("INGRESSO ("+getTipoIngresso()+")");
         System.out.print(" ID: " + getId());
-        System.out.println("Visitante: " +getVisitante().getNome()+ " ("+getVisitante().getTipoDocumento()+": " +getVisitante().getDocumento()+")");
+        System.out.println("\nVisitante: " +getVisitante().getNome()+ " ("+getVisitante().getTipoDocumento()+": " +getVisitante().getDocumento()+")");
         System.out.println("Apresentação: "+getApresentacao().getNomeApresentacao()+ " ("+getApresentacao().getTipo()+")");
         System.out.println("Valor base do ingresso: " + getValor());
         System.out.println("Valor final: " + getValorFinal());
