@@ -9,8 +9,8 @@ import java.util.Scanner;
 public class ArtistaView {
     private final Scanner scanner;
 
-    public ArtistaView() {
-        scanner = new Scanner(System.in);
+    public ArtistaView(Scanner scanner) {
+        this.scanner = scanner;
     }
 
     public void mostrarMensagem(String mensagem) {
@@ -22,7 +22,7 @@ public class ArtistaView {
     }
 
     public String lerNome() {
-        System.out.println("Informe o nome do Artista: ");
+        System.out.print("Informe o nome do Artista: ");
         return scanner.nextLine();
     }
 
@@ -30,7 +30,7 @@ public class ArtistaView {
         System.out.println("Tipo de Documento:");
         System.out.println("1 - CPF");
         System.out.println("2 - Passaporte");
-        System.out.println("Escolha: ");
+        System.out.print("Escolha: ");
 
         int opcao = scanner.nextInt();
         limparBuffer();
@@ -60,7 +60,7 @@ public class ArtistaView {
         System.out.println("1 - Solo");
         System.out.println("2 - Dupla");
         System.out.println("3 - Banda");
-        System.out.println("Escolha: ");
+        System.out.print("Escolha: ");
 
         int opcao = scanner.nextInt();
         limparBuffer();
@@ -83,32 +83,32 @@ public class ArtistaView {
     public String lerNomeArtistico(TipoArtista tipoArtista)
     {
         if (tipoArtista == TipoArtista.SOLO) {
-            System.out.println("Informe o nome artístico: ");
+            System.out.print("Informe o nome artístico: ");
         } else if (tipoArtista == TipoArtista.DUPLA) {
-            System.out.println("Informe o nome da Dupla:");
+            System.out.print("Informe o nome da Dupla:");
         } else {
-            System.out.println("Informe o nome da Banda: ");
+            System.out.print("Informe o nome da Banda: ");
         }
         return scanner.nextLine();
     }
 
     public String lerNomeBusca() {
-        System.out.println("Informe o nome ou nome artístico: ");
+        System.out.print("Informe o nome ou nome artístico: ");
         return scanner.nextLine();
     }
 
     public String lerGeneroMusical() {
-        System.out.println("Informe o gênero musical: ");
+        System.out.print("Informe o gênero musical: ");
         return scanner.nextLine();
     }
 
     public String lerContatoTelefonico() {
-        System.out.println("Informe um telefone para contato: ");
+        System.out.print("Informe um telefone para contato: ");
         return scanner.nextLine();
     }
 
     public int lerId() {
-        System.out.println("Informe o id: ");
+        System.out.print("Informe o id: ");
         int id = scanner.nextInt();
         limparBuffer();
         return id;

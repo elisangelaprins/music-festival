@@ -78,7 +78,7 @@ public class Artista extends Pessoa {
 
     @Override
     public String getTipo() {
-        return "Artista";
+        return "ARTISTA";
     }
 
     @Override
