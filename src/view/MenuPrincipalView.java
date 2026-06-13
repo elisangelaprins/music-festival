@@ -12,7 +12,7 @@ public class MenuPrincipalView {
     private final VisitanteController visitanteController;
     private final ApresentacaoController apresentacaoController;
     private final PatrocinadorController patrocinadorController;
-    private RelatorioController relatorioController;
+    private final PropostaController propostaController;
 
     public MenuPrincipalView() {
         scanner = new Scanner(System.in);
@@ -22,10 +22,11 @@ public class MenuPrincipalView {
         this.visitanteController = new VisitanteController(visitanteView);
         ApresentacaoView apresentacaoView = new ApresentacaoView(scanner);
         this.apresentacaoController = new ApresentacaoController(apresentacaoView, artistaController);
-        PatrocinadorView patrocinadorView = new PatrocinadorView();
+        PatrocinadorView patrocinadorView = new PatrocinadorView(scanner);
         this.patrocinadorController = new PatrocinadorController(patrocinadorView);
-        RelatorioView relatorioView = new RelatorioView();
-        this.relatorioController = new RelatorioController(relatorioView);
+        PropostaView propostaView = new PropostaView(scanner);
+        this.propostaController = new PropostaController(propostaView, patrocinadorController);
+
     }
 
 
@@ -67,7 +68,7 @@ public class MenuPrincipalView {
                     menuPatrocinador();
                     break;
                 case 10:
-                    menuRelatorio();
+                    menuProposta();
                     break;
                 case 0:
                     LogUtil.log(TipoLog.INFO, "Sistema encerrado pelo usuário.");
@@ -92,7 +93,7 @@ public class MenuPrincipalView {
         System.out.println("7 - Staff");
         System.out.println("8 - Credencial");
         System.out.println("9 - Patrocinador");
-        System.out.println("10 - Relatório");
+        System.out.println("10 - Propostas");
         System.out.println("0 - Sair");
     }
 
@@ -261,22 +262,14 @@ public class MenuPrincipalView {
             }
         } while (opcao != 0);
     }
-
-    private void menuRelatorio() {
+    private void menuProposta() {
         int opcao;
         do {
-            System.out.println("\n=== MENU DE RELATÓRIOS ===");
-            System.out.println("1 - Relatório de Patrocinadores");
-            System.out.println("2 - Relatório de Artistas");
-            System.out.println("3 - Relatório de Agendas");
-            System.out.println("4 - Relatório de Apresentações");
-            System.out.println("5 - Relatório de Credenciais");
-            System.out.println("6 - Relatório de Entrevistas");
-            System.out.println("7 - Relatório de Ingressos");
-            System.out.println("8 - Relatório de Palcos");
-            System.out.println("9 - Relatório de Shows");
-            System.out.println("10 - Relatório de Staffs");
-            System.out.println("11 - Relatório de Visitantes");
+            System.out.println("\n=== PROPOSTAS DE PATROCÍNIO ===");
+            System.out.println("1 - Cadastrar proposta");
+            System.out.println("2 - Listar propostas");
+            System.out.println("3 - Alterar proposta");
+            System.out.println("4 - Remover proposta");
             System.out.println("0 - Voltar ao menu inicial");
 
             opcao = lerOpcao();
@@ -284,45 +277,25 @@ public class MenuPrincipalView {
 
             switch (opcao) {
                 case 1:
-                    relatorioController.gerarRelatorioDoMenu("Relatório de Patrocinadores", patrocinadorController.getPatrocinadores());
+                    propostaController.cadastrarProposta();
                     break;
                 case 2:
-                    relatorioController.gerarRelatorioDoMenu("Relatório de Artistas", artistaController.getArtistas());
+                    propostaController.listarPropostas();
                     break;
-//                case 3:
-//                    relatorioController.gerarRelatorioDoMenu("Relatório de Agendas", agendaController.getAgendas());
-//                    break;
+                case 3:
+                    propostaController.alterarProposta();
+                    break;
                 case 4:
-                    relatorioController.gerarRelatorioDoMenu("Relatório de Apresentações", apresentacaoController.getApresentacoes());
+                    propostaController.removerProposta();
                     break;
-//                case 5:
-//                    relatorioController.gerarRelatorioDoMenu("Relatório de Credenciais", credencialController.getCredenciais());
-//                    break;
-//                case 6:
-//                    relatorioController.gerarRelatorioDoMenu("Relatório de Entrevistas", entrevistaController.getEntrevistas());
-//                    break;
-//                case 7:
-//                    relatorioController.gerarRelatorioDoMenu("Relatório de Ingressos", ingressoController.getIngressos());
-//                    break;
-//                case 8:
-//                    relatorioController.gerarRelatorioDoMenu("Relatório de Palcos", palcoController.getPalcos());
-//                    break;
-//                case 9:
-//                    relatorioController.gerarRelatorioDoMenu("Relatório de Shows", showController.getShows());
-//                    break;
-//                case 10:
-//                    relatorioController.gerarRelatorioDoMenu("Relatório de Staffs", staffController.getStaffs());
-//                    break;
-//                case 11:
-//                    relatorioController.gerarRelatorioDoMenu("Relatório de Visitantes", visitanteController.getVisitantes());
-//                    break;
                 case 0:
                     break;
                 default:
-                    System.out.println("Opção inválida.");
+                    System.out.println("Opção inválida");
             }
         } while (opcao != 0);
     }
+
 
     private int lerOpcao() {
         System.out.print("Escolha: ");

@@ -71,7 +71,7 @@ public class PatrocinadorController {
     public Patrocinador buscarPorId(int id) {
         Patrocinador patrocinador = patrocinadores.get(id);
         if (patrocinador == null) {
-            view.mostrarMensagem("Patrocinador não encontrado");
+            view.mostrarMensagem("Patrocinador não encontrado.");
         }
         return patrocinador;
     }
@@ -105,7 +105,7 @@ public class PatrocinadorController {
 
         } catch (IllegalArgumentException e) {
             LogUtil.log(TipoLog.ERRO, "Falha ao alterar patrocinador: " + e.getMessage());
-            view.mostrarMensagem("Erro:  " + e.getMessage());
+            view.mostrarMensagem("Erro: " + e.getMessage());
         }
     }
 
