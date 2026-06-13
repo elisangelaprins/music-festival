@@ -1,6 +1,7 @@
 package controller;
 
 import model.Visitante;
+import model.abstratas.Pessoa;
 import model.enums.TipoDocumento;
 import util.ArquivoUtil;
 import util.LogUtil;
@@ -25,6 +26,9 @@ public class VisitanteController {
 
             if (carregado != null) {
                 this.visitantes = (HashMap<Integer, Visitante>) carregado;
+                for (Visitante v : this.visitantes.values()) {
+                    Pessoa.atualizarContador(v.getId());
+                }
             }
             LogUtil.log(TipoLog.INFO,"Arquivo de visitantes carregados com sucesso.");
         } catch (Exception e) {
