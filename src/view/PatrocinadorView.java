@@ -7,8 +7,8 @@ public class PatrocinadorView {
     private final Scanner scanner;
 
 
-    public PatrocinadorView() {
-        this.scanner = new Scanner(System.in);
+    public PatrocinadorView(Scanner scanner) {
+        this.scanner = scanner;
     }
 
     public void mostrarMensagem(String mensagem) {
