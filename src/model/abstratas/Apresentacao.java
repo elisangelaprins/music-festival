@@ -133,10 +133,7 @@ public abstract class Apresentacao implements Serializable {
 
     @Override
     public String toString() {
-        return getTipo() + " | ID: " + id + " | Nome: " + nomeApresentacao +
-                "\nData: " + data + " | Hora: " + hora +
-                " | Duração: " + duracaoMinutos + "min" +
-                " | Artista: " + artista.getNomeArtistico();
+        return getTipo() + " | ID: " + id + " | Nome: " + nomeApresentacao + "Data: " + data + " | Hora: " + hora + " | Duração: " + duracaoMinutos + "min" + " | Artista: " + artista.getNomeArtistico();
 //                " | Palco: " + palco.getNome();
     }
 

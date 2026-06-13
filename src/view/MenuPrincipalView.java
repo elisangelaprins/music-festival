@@ -4,7 +4,6 @@ import controller.ApresentacaoController;
 import controller.PatrocinadorController;
 import controller.ArtistaController;
 import controller.RelatorioController;
-import model.abstratas.Apresentacao;
 import util.LogUtil;
 import util.TipoLog;
 

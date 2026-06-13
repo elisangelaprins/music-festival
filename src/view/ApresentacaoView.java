@@ -119,7 +119,7 @@ public class ApresentacaoView {
     }
 
     public double lerCacheShow() {
-        System.out.print("Digite o valor do cachê do Show (Ex.: 5000,00): ");
+        System.out.print("Digite o valor do cachê do Show (Ex.: 5000,00): R$");
         double cache = scanner.nextDouble();
         limparBuffer();
         return cache;
