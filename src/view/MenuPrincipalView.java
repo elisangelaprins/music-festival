@@ -299,37 +299,6 @@ public class MenuPrincipalView {
         } while (opcao != 0);
     }
 
-    private void menuCredencial() {
-        int opcao;
-        do {
-            System.out.println("=== CREDENCIAL ===");
-            System.out.println("1 - Cadastrar credencial");
-            System.out.println("2 - Listar credenciais");
-            System.out.println("3 - Alterar credencial");
-            System.out.println("4 - Remover credencial");
-            System.out.println("0 - Voltar ao menu inicial");
-            opcao = lerOpcao();
-            limparBuffer();
-            switch (opcao) {
-                case 1:
-                    credencialController.cadastrarCredencial();
-                    break;
-                case 2:
-                    credencialController.listarCredenciais();
-                    break;
-                case 3:
-                    credencialController.alterarCredencial();
-                    break;
-                case 4:
-                    credencialController.removerCredencial();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida");
-            }
-        } while (opcao != 0);
-    }
 
     private void menuProposta() {
         int opcao;
