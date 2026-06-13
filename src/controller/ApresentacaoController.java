@@ -4,6 +4,7 @@ import model.Artista;
 import model.Entrevista;
 import model.Show;
 import model.abstratas.Apresentacao;
+import model.abstratas.Pessoa;
 import model.enums.TipoShow;
 import util.ArquivoUtil;
 import util.LogUtil;
@@ -30,6 +31,9 @@ public class ApresentacaoController {
 
             if (carregado != null) {
                 this.apresentacoes = (HashMap<Integer, Apresentacao>) carregado;
+                for (Apresentacao a : this.apresentacoes.values()) {
+                    Apresentacao.atualizarContador(a.getId());
+                }
             }
 
             LogUtil.log(TipoLog.INFO, ("Arquivo de apresentações carregados com sucesso."));
@@ -51,7 +55,6 @@ public class ApresentacaoController {
             if (artista == null) {
                 throw new IllegalArgumentException("Artista não encontrado.");
             }
-            //falta criar palco aqui
             TipoShow tipoShow = view.lerTipoShow();
             double cache = view.lerCacheShow();
 
@@ -270,6 +273,6 @@ public class ApresentacaoController {
                 total += ((Show) a).getCache();
             }
         }
-        view.mostrarMensagem("Total gasto com cachês de shows: R$ " + total);
+        view.mostrarMensagem("Total gasto com cachês de shows: R$ " + total + "\n");
     }
 }
