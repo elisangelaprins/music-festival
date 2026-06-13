@@ -1,4 +1,5 @@
 package model;
+
 import model.Artista;
 import model.Palco;
 import model.abstratas.Apresentacao;
@@ -8,17 +9,20 @@ public class Show extends Apresentacao {
     private static final long serialVersionUID = 1L;
 
     private TipoShow tipoShow;
+    private double cache;
 
-    public Show (String nomeApresentacao, String data, String hora, int duracaoMinutos, Artista artista, Palco palco, TipoShow tipoShow) {
+    public Show(String nomeApresentacao, String data, String hora, int duracaoMinutos, Artista artista, TipoShow tipoShow, double cache) {
 
-        super(nomeApresentacao, data, hora, duracaoMinutos, artista, palco);
+        super(nomeApresentacao, data, hora, duracaoMinutos, artista);
         setTipoShow(tipoShow);
+        setCache(cache);
 
     }
 
-    public Show(int id, String nomeApresentacao, String data, String hora, int duracaoMinutos, Artista artista, Palco palco, TipoShow tipoShow) {
-        super(id, nomeApresentacao, data, hora, duracaoMinutos, artista, palco);
+    public Show(int id, String nomeApresentacao, String data, String hora, int duracaoMinutos, Artista artista, TipoShow tipoShow, double cache) {
+        super(id, nomeApresentacao, data, hora, duracaoMinutos, artista);
         setTipoShow(tipoShow);
+        setCache(cache);
     }
 
     public TipoShow getTipoShow() {
@@ -32,9 +36,20 @@ public class Show extends Apresentacao {
         this.tipoShow = tipoShow;
     }
 
+    public double getCache() {
+        return cache;
+    }
+
+    public void setCache(double cache) {
+        if (cache <= 0) {
+            throw new IllegalArgumentException("Erro: Cachê do show deve ser maior que zero.");
+        }
+        this.cache = cache;
+    }
+
     @Override
     public String getTipo() {
-        return "Show";
+        return "SHOW";
     }
 
     @Override
@@ -46,12 +61,13 @@ public class Show extends Apresentacao {
         System.out.println("Tipo do Artista: " + getArtista().getTipoArtista());
         System.out.println("Nome Artístico: " + getArtista().getNomeArtistico());
         System.out.println("Gênero Musical: " + getArtista().getGeneroMusical());
-        System.out.println("Data e hora: " + getData() + " , " + getHora() + " | Duração: " + getDuracaoMinutos());
-        System.out.println("Palco: " + getPalco().getNome());
+        System.out.println("Data: " + getData() + " | Hora: " + getHora() + " | Duração: " + getDuracaoMinutos() + " min");
+        System.out.println("Cachê: R$ " + getCache());
+        System.out.println();
     }
 
     @Override
     public String toString() {
-        return super.toString() + " | Tipo Show: " + tipoShow;
+        return super.toString() + " | Tipo Show: " + tipoShow + " | Cachê: R$ " + cache;
     }
 }

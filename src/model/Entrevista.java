@@ -9,17 +9,17 @@ public class Entrevista extends Apresentacao {
     private String nomeEntrevistador;
     private String temaEntrevista;
 
-    public Entrevista(String nomeApresentacao, String nomeEntrevistador, String temaEntrevista, String data, String hora, int duracaoMinutos, Artista artista, Palco palco) {
+    public Entrevista(String nomeApresentacao, String nomeEntrevistador, String temaEntrevista, String data, String hora, int duracaoMinutos, Artista artista) {
 
-        super(nomeApresentacao, data, hora, duracaoMinutos, artista, palco);
+        super(nomeApresentacao, data, hora, duracaoMinutos, artista);
 
         setNomeEntrevistador(nomeEntrevistador);
         setTemaEntrevista(temaEntrevista);
     }
 
-    public Entrevista(int id, String nomeApresentacao, String nomeEntrevistador, String temaEntrevista, String data, String hora, int duracaoMinutos, Artista artista, Palco palco) {
+    public Entrevista(int id, String nomeApresentacao, String nomeEntrevistador, String temaEntrevista, String data, String hora, int duracaoMinutos, Artista artista) {
 
-        super(id, nomeApresentacao, data, hora, duracaoMinutos, artista, palco);
+        super(id, nomeApresentacao, data, hora, duracaoMinutos, artista);
 
         setNomeEntrevistador(nomeEntrevistador);
         setTemaEntrevista(temaEntrevista);
@@ -31,7 +31,7 @@ public class Entrevista extends Apresentacao {
 
     public void setNomeEntrevistador(String nomeEntrevistador) {
         if (nomeEntrevistador == null || nomeEntrevistador.isEmpty()){
-            throw new IllegalArgumentException("Erro: Nome do entrevistador não pode ser vazio.");
+            throw new IllegalArgumentException("Erro: Tema da entrevista não pode ser vazio.");
         }
         this.nomeEntrevistador = nomeEntrevistador;
     }
@@ -49,7 +49,7 @@ public class Entrevista extends Apresentacao {
 
     @Override
     public String getTipo() {
-        return "Entrevista";
+        return "ENTREVISTA";
     }
 
     @Override
@@ -63,9 +63,8 @@ public class Entrevista extends Apresentacao {
         System.out.println("Tipo do Artista: " + getArtista().getTipoArtista());
         System.out.println("Nome Artístico: " + getArtista().getNomeArtistico());
         System.out.println("Gênero Musical: " + getArtista().getGeneroMusical());
-        System.out.println("Data e hora: " + getData() + " , " + getHora() + " | Duração: " + getDuracaoMinutos());
-        System.out.println("Palco: " + getPalco().getNome());
-
+        System.out.println("Data: " + getData() + " | Hora: " + getHora() + " | Duração: " + getDuracaoMinutos() + " min");
+        System.out.println();
     }
 
     @Override
