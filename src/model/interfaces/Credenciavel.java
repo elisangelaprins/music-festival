@@ -1,4 +1,7 @@
 package model.interfaces;
 
-public class Credenciavel {
+public interface Credenciavel {
+    String gerarCredencial();
+
+    boolean possuiCredencial();
 }

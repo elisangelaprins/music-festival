@@ -13,6 +13,8 @@ public class MenuPrincipalView {
     private final ApresentacaoController apresentacaoController;
     private final PatrocinadorController patrocinadorController;
     private final PropostaController propostaController;
+    private final StaffController staffController;
+    private final CredencialController credencialController;
 
     public MenuPrincipalView() {
         scanner = new Scanner(System.in);
@@ -26,7 +28,10 @@ public class MenuPrincipalView {
         this.patrocinadorController = new PatrocinadorController(patrocinadorView);
         PropostaView propostaView = new PropostaView(scanner);
         this.propostaController = new PropostaController(propostaView, patrocinadorController);
-
+        StaffView staffView = new StaffView(scanner);
+        this.staffController = new StaffController(staffView);
+        CredencialView credencialView = new CredencialView(scanner);
+        this.credencialController = new CredencialController(credencialView, staffController);
     }
 
 
@@ -58,12 +63,12 @@ public class MenuPrincipalView {
 //                case 6:
 //                    menuIngresso();
 //                    break;
-//                case 7:
-//                    menuStaff();
-//                    break;
-//                case 8:
-//                    menuCredencial();
-//                    break;
+                case 7:
+                    menuStaff();
+                    break;
+                case 8:
+                    menuCredencial();
+                    break;
                 case 9:
                     menuPatrocinador();
                     break;
@@ -262,6 +267,70 @@ public class MenuPrincipalView {
             }
         } while (opcao != 0);
     }
+    private void menuStaff() {
+        int opcao;
+        do {
+            System.out.println("=== STAFF ===");
+            System.out.println("1 - Cadastrar staff");
+            System.out.println("2 - Listar staffs");
+            System.out.println("3 - Alterar staff");
+            System.out.println("4 - Remover staff");
+            System.out.println("0 - Voltar ao menu inicial");
+            opcao = lerOpcao();
+            limparBuffer();
+            switch (opcao) {
+                case 1:
+                    staffController.cadastrarStaff();
+                    break;
+                case 2:
+                    staffController.listarStaffs();
+                    break;
+                case 3:
+                    staffController.alterarStaff();
+                    break;
+                case 4:
+                    staffController.removerStaff();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opção inválida");
+            }
+        } while (opcao != 0);
+    }
+
+    private void menuCredencial() {
+        int opcao;
+        do {
+            System.out.println("=== CREDENCIAL ===");
+            System.out.println("1 - Cadastrar credencial");
+            System.out.println("2 - Listar credenciais");
+            System.out.println("3 - Alterar credencial");
+            System.out.println("4 - Remover credencial");
+            System.out.println("0 - Voltar ao menu inicial");
+            opcao = lerOpcao();
+            limparBuffer();
+            switch (opcao) {
+                case 1:
+                    credencialController.cadastrarCredencial();
+                    break;
+                case 2:
+                    credencialController.listarCredenciais();
+                    break;
+                case 3:
+                    credencialController.alterarCredencial();
+                    break;
+                case 4:
+                    credencialController.removerCredencial();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opção inválida");
+            }
+        } while (opcao != 0);
+    }
+
     private void menuProposta() {
         int opcao;
         do {
