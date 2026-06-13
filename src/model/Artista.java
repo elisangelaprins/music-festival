@@ -3,8 +3,9 @@ package model;
 import model.abstratas.Pessoa;
 import model.enums.TipoArtista;
 import model.enums.TipoDocumento;
+import model.interfaces.Credenciavel;
 
-public class Artista extends Pessoa {
+public class Artista extends Pessoa implements Credenciavel {
     private static final long serialVersionUID = 1L;
 
     private String nomeArtistico;
@@ -98,5 +99,15 @@ public class Artista extends Pessoa {
     @Override
     public String toString() {
         return super.toString() + " | Tipo: " + getTipoArtista() + " |Nome Artístico: " + getNomeArtistico() + " | Gênero Musical: " + getGeneroMusical() + " | Contato telefônico: " + getContatoTelefonico();
+    }
+
+    @Override
+    public String gerarCredencial() {
+        return "ARTISTA-" + getId();
+    }
+
+    @Override
+    public boolean possuiCredencial() {
+        return true;
     }
 }
