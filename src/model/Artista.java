@@ -92,6 +92,7 @@ public class Artista extends Pessoa {
         System.out.println("Nome Artístico: " + getNomeArtistico());
         System.out.println("Gênero Musical: " + getGeneroMusical());
         System.out.println("Contato: " + getContatoTelefonico());
+        System.out.println();
     }
 
     @Override
