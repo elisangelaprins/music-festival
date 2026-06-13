@@ -69,8 +69,6 @@ public class Entrevista extends Apresentacao {
 
     @Override
     public String toString() {
-        return super.toString()
-                + " | Nome entrevistador: " + nomeEntrevistador
-                + " | Tema da Entrevista: " + temaEntrevista;
+        return super.toString() + " | Nome entrevistador: " + nomeEntrevistador + " | Tema da Entrevista: " + temaEntrevista;
     }
 }

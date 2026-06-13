@@ -83,7 +83,7 @@ public class Artista extends Pessoa {
 
     @Override
     public void exibirDetalhes() {
-        System.out.println("\n--------------------------------");
+        System.out.println("--------------------------------");
         System.out.println(getTipo());
         System.out.println("ID: " + getId());
         System.out.println("Nome: " + getNome());
@@ -97,10 +97,6 @@ public class Artista extends Pessoa {
 
     @Override
     public String toString() {
-        return super.toString()
-                + " | Tipo: " + getTipoArtista()
-                + "\n Nome Artístico: " + getNomeArtistico()
-                + "\n Gênero Musical: " + getGeneroMusical()
-                + "\n Contato telefônico: " + getContatoTelefonico();
+        return super.toString() + " | Tipo: " + getTipoArtista() + " |Nome Artístico: " + getNomeArtistico() + " | Gênero Musical: " + getGeneroMusical() + " | Contato telefônico: " + getContatoTelefonico();
     }
 }
