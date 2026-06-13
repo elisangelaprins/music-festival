@@ -93,7 +93,7 @@ public class Patrocinador implements Serializable {
                     + "\nNome: " + nome
                     + "\nCNPJ: " + cnpj
                     + "\nCategoria: " + categoria
-                    + "\nValor Patrocinio: R$ " + valorPatrocinio;
+                    + "\nValor Patrocínio: R$ " + valorPatrocinio;
         }
 
     }

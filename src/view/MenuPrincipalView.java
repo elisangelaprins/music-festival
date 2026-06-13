@@ -22,7 +22,7 @@ public class MenuPrincipalView {
         this.artistaController = new ArtistaController(artistaView);
         ApresentacaoView apresentacaoView = new ApresentacaoView(scanner);
         this.apresentacaoController = new ApresentacaoController(apresentacaoView, artistaController);
-        PatrocinadorView patrocinadorView = new PatrocinadorView();
+        PatrocinadorView patrocinadorView = new PatrocinadorView(scanner);
         this.patrocinadorController = new PatrocinadorController(patrocinadorView);
         RelatorioView relatorioView = new RelatorioView();
         this.relatorioController = new RelatorioController(relatorioView);
