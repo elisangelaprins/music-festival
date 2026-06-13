@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class LogUtil {
     private static final String ARQUIVO = "logs/log.txt";
@@ -18,7 +19,8 @@ public class LogUtil {
 
             FileWriter writer = new FileWriter(ARQUIVO, true);
             LocalDateTime agora = LocalDateTime.now();
-            String linha = "[" + agora + "] " + tipo + " - " + mensagem + "\n";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            String linha = "[" + agora.format(formatter) + "] " + tipo + " - " + mensagem + "\n";
 
             writer.write(linha);
             writer.close();
