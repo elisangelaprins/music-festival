@@ -9,8 +9,8 @@ import java.util.Scanner;
 public class VisitanteView {
     private final Scanner scanner;
 
-    VisitanteView(){
-        scanner = new Scanner(System.in);
+    VisitanteView(Scanner scanner) {
+        this.scanner = scanner;
     }
 
     public void mostrarMsg(String msg) {

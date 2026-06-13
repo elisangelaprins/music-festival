@@ -1,9 +1,6 @@
 package view;
 
-import controller.ApresentacaoController;
-import controller.PatrocinadorController;
-import controller.ArtistaController;
-import controller.RelatorioController;
+import controller.*;
 import util.LogUtil;
 import util.TipoLog;
 
@@ -12,6 +9,7 @@ import java.util.Scanner;
 public class MenuPrincipalView {
     private final Scanner scanner;
     private final ArtistaController artistaController;
+    private final VisitanteController visitanteController;
     private final ApresentacaoController apresentacaoController;
     private final PatrocinadorController patrocinadorController;
     private RelatorioController relatorioController;
@@ -20,6 +18,8 @@ public class MenuPrincipalView {
         scanner = new Scanner(System.in);
         ArtistaView artistaView = new ArtistaView(scanner);
         this.artistaController = new ArtistaController(artistaView);
+        VisitanteView visitanteView = new VisitanteView(scanner);
+        this.visitanteController = new VisitanteController(visitanteView);
         ApresentacaoView apresentacaoView = new ApresentacaoView(scanner);
         this.apresentacaoController = new ApresentacaoController(apresentacaoView, artistaController);
         PatrocinadorView patrocinadorView = new PatrocinadorView();
@@ -51,9 +51,9 @@ public class MenuPrincipalView {
 //                case 4:
 //                    menuAgenda();
 //                    break;
-//                case 5:
-//                    menuVisitante();
-//                    break;
+                case 5:
+                    menuVisitante();
+                    break;
 //                case 6:
 //                    menuIngresso();
 //                    break;
@@ -128,6 +128,44 @@ public class MenuPrincipalView {
                     break;
                 default:
                     System.out.println("Opção inválida");
+            }
+        } while (opcao != 0);
+    }
+
+    private void menuVisitante() {
+        int opcao;
+        do {
+            System.out.println("=== VISITANTES ===");
+            System.out.println("1 - Cadastrar visitante");
+            System.out.println("2 - Listar visitantes");
+            System.out.println("3 - Buscar visitante pelo documento");
+            System.out.println("4 - Alterar visitante");
+            System.out.println("5 - Remover visitante");
+            System.out.println("0 - Voltar ao menu inicial");
+            opcao = lerOpcao();
+            limparBuffer();
+
+            switch (opcao) {
+                case 1:
+                    visitanteController.cadastrarVisitante();
+                    break;
+                case 2:
+                    visitanteController.listarVisitantes();
+                    break;
+                case 3:
+                    visitanteController.buscarPorDocumento();
+                    break;
+                case 4:
+                    visitanteController.alterarVisitante();
+                    break;
+                case 5:
+                    visitanteController.removerVisitante();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+                    break;
             }
         } while (opcao != 0);
     }
