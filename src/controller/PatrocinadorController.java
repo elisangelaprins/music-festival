@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 public class PatrocinadorController {
-    private static final String ARQUIVO = "patrocindadores.dat";
+    private static final String ARQUIVO = "patrocinadores.dat";
     private final PatrocinadorView view;
     private HashMap<Integer, Patrocinador> patrocinadores;
 
