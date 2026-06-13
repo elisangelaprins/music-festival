@@ -84,6 +84,7 @@ public class ArtistaController {
         }
 
         if (encontrados.isEmpty()) {
+            LogUtil.log(TipoLog.AVISO, "Busca por nome sem resultado: " + nome);
             view.mostrarMensagem("Nenhum artista encontrado.");
             return;
         }
@@ -106,6 +107,15 @@ public class ArtistaController {
         }
 
         return artista;
+    }
+
+    public Artista buscarPorNome(String nomeArtista) {
+        for (Artista artista : artistas.values()) {
+            if (artista.getNome().equalsIgnoreCase(nomeArtista) || artista.getNomeArtistico().equalsIgnoreCase(nomeArtista)) {
+                return artista;
+            }
+        }
+        return null;
     }
 
     public void alterarArtista() {
