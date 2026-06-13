@@ -1,6 +1,7 @@
 package controller;
 
 import model.Artista;
+import model.abstratas.Pessoa;
 import model.enums.TipoArtista;
 import model.enums.TipoDocumento;
 import util.ArquivoUtil;
@@ -26,6 +27,9 @@ public class ArtistaController {
 
             if (carregado != null) {
                 this.artistas = (HashMap<Integer, Artista>) carregado;
+                for (Artista a : this.artistas.values()) {
+                    Pessoa.atualizarContador(a.getId());
+                }
             }
 
             LogUtil.log(TipoLog.INFO, ("Arquivo de artistas carregados com sucesso."));
@@ -99,7 +103,6 @@ public class ArtistaController {
     }
 
     public Artista buscarPorId(int id) {
-
         Artista artista = artistas.get(id);
 
         if (artista == null) {
