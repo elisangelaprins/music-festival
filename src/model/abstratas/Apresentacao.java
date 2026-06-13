@@ -1,8 +1,6 @@
 package model.abstratas;
 
 import model.Artista;
-import model.Palco;
-
 import java.io.Serializable;
 
 public abstract class Apresentacao implements Serializable {
@@ -15,7 +13,6 @@ public abstract class Apresentacao implements Serializable {
     private String hora;
     private int duracaoMinutos;
     private Artista artista;
-//    private Palco palco;
 
     public Apresentacao(String nomeApresentacao, String data, String hora, int duracaoMinutos, Artista artista) {
         setNomeApresentacao(nomeApresentacao);
@@ -23,7 +20,6 @@ public abstract class Apresentacao implements Serializable {
         setHora(hora);
         setDuracaoMinutos(duracaoMinutos);
         setArtista(artista);
-//        setPalco(palco);
         this.id = contadorId++;
     }
 
@@ -34,8 +30,13 @@ public abstract class Apresentacao implements Serializable {
         setHora(hora);
         setDuracaoMinutos(duracaoMinutos);
         setArtista(artista);
-//        setPalco(palco);
 
+        if (id >= contadorId) {
+            contadorId = id + 1;
+        }
+    }
+
+    public static void atualizarContador(int id) {
         if (id >= contadorId) {
             contadorId = id + 1;
         }
@@ -100,17 +101,6 @@ public abstract class Apresentacao implements Serializable {
         this.artista = artista;
     }
 
-//    public Palco getPalco() {
-//        return palco;
-//    }
-
-//    public void setPalco(Palco palco) {
-//        if (palco == null) {
-//            throw new IllegalArgumentException("O palco não pode ser vazio.");
-//        }
-//        this.palco = palco;
-//    }
-
     @Override
     public boolean equals(Object obj) {
 
@@ -134,7 +124,6 @@ public abstract class Apresentacao implements Serializable {
     @Override
     public String toString() {
         return getTipo() + " | ID: " + id + " | Nome: " + nomeApresentacao + "Data: " + data + " | Hora: " + hora + " | Duração: " + duracaoMinutos + "min" + " | Artista: " + artista.getNomeArtistico();
-//                " | Palco: " + palco.getNome();
     }
 
     private void setId(int id) {
