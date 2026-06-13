@@ -4,7 +4,6 @@ import model.Artista;
 import model.Entrevista;
 import model.Show;
 import model.abstratas.Apresentacao;
-import model.abstratas.Pessoa;
 import model.enums.TipoShow;
 import util.ArquivoUtil;
 import util.LogUtil;
