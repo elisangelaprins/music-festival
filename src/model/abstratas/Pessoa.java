@@ -30,6 +30,12 @@ public abstract class Pessoa implements Serializable {
         }
     }
 
+    public static void atualizarContador(int id) {
+        if (id >= contadorId) {
+            contadorId = id + 1;
+        }
+    }
+
     public int getId() {
         return id;
     }
