@@ -15,26 +15,26 @@ public abstract class Apresentacao implements Serializable {
     private String hora;
     private int duracaoMinutos;
     private Artista artista;
-    private Palco palco;
+//    private Palco palco;
 
-    public Apresentacao(String nomeApresentacao, String data, String hora, int duracaoMinutos, Artista artista, Palco palco) {
+    public Apresentacao(String nomeApresentacao, String data, String hora, int duracaoMinutos, Artista artista) {
         setNomeApresentacao(nomeApresentacao);
         setData(data);
         setHora(hora);
         setDuracaoMinutos(duracaoMinutos);
         setArtista(artista);
-        setPalco(palco);
+//        setPalco(palco);
         this.id = contadorId++;
     }
 
-    public Apresentacao(int id, String nomeApresentacao, String data, String hora, int duracaoMinutos, Artista artista, Palco palco) {
+    public Apresentacao(int id, String nomeApresentacao, String data, String hora, int duracaoMinutos, Artista artista) {
         setId(id);
         setNomeApresentacao(nomeApresentacao);
         setData(data);
         setHora(hora);
         setDuracaoMinutos(duracaoMinutos);
         setArtista(artista);
-        setPalco(palco);
+//        setPalco(palco);
 
         if (id >= contadorId) {
             contadorId = id + 1;
@@ -95,21 +95,21 @@ public abstract class Apresentacao implements Serializable {
 
     public void setArtista(Artista artista) {
         if (artista == null) {
-            throw new IllegalArgumentException("Nome do artista não pode ser vazio.");
+            throw new IllegalArgumentException("Nome do artista não pode ser nulo.");
         }
         this.artista = artista;
     }
 
-    public Palco getPalco() {
-        return palco;
-    }
+//    public Palco getPalco() {
+//        return palco;
+//    }
 
-    public void setPalco(Palco palco) {
-        if (palco == null) {
-            throw new IllegalArgumentException("O palco não pode ser vazio.");
-        }
-        this.palco = palco;
-    }
+//    public void setPalco(Palco palco) {
+//        if (palco == null) {
+//            throw new IllegalArgumentException("O palco não pode ser vazio.");
+//        }
+//        this.palco = palco;
+//    }
 
     @Override
     public boolean equals(Object obj) {
@@ -134,10 +134,10 @@ public abstract class Apresentacao implements Serializable {
     @Override
     public String toString() {
         return getTipo() + " | ID: " + id + " | Nome: " + nomeApresentacao +
-                "\n Data: " + data + " | Hora: " + hora +
+                "\nData: " + data + " | Hora: " + hora +
                 " | Duração: " + duracaoMinutos + "min" +
-                " | Artista: " + artista.getNomeArtistico() +
-                " | Palco: " + palco.getNome();
+                " | Artista: " + artista.getNomeArtistico();
+//                " | Palco: " + palco.getNome();
     }
 
     private void setId(int id) {
