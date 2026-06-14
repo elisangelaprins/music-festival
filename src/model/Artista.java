@@ -35,7 +35,7 @@ public class Artista extends Pessoa implements Credenciavel {
 
     public void setTipoArtista(TipoArtista tipoArtista) {
         if (tipoArtista == null) {
-            throw new IllegalArgumentException("Tipo de Artista inválido");
+            throw new IllegalArgumentException("O tipo de artista não pode ser nulo.");
         }
         this.tipoArtista = tipoArtista;
     }
@@ -46,7 +46,7 @@ public class Artista extends Pessoa implements Credenciavel {
 
     public void setNomeArtistico(String nomeArtistico) {
         if(nomeArtistico == null || nomeArtistico.isEmpty()) {
-            throw new IllegalArgumentException("Nome artístico inválido");
+            throw new IllegalArgumentException("O nome artístico não pode ser vazio.");
         }
         this.nomeArtistico = nomeArtistico;
     }
@@ -57,7 +57,7 @@ public class Artista extends Pessoa implements Credenciavel {
 
     public void setGeneroMusical(String generoMusical) {
         if (generoMusical == null || generoMusical.isEmpty()) {
-            throw new IllegalArgumentException("Gênero musical inválido");
+            throw new IllegalArgumentException("O gênero musical não pode ser vazio.");
         }
         this.generoMusical = generoMusical;
     }
@@ -68,9 +68,9 @@ public class Artista extends Pessoa implements Credenciavel {
 
     public void setContatoTelefonico(String contatoTelefonico) {
         if (contatoTelefonico == null || contatoTelefonico.isEmpty()) {
-            throw new IllegalArgumentException("Contato telefônico inválido");
+            throw new IllegalArgumentException("O contato telefônico não pode ser vazio.");
         }
-        if (contatoTelefonico.length() < 8) {
+        if (contatoTelefonico.length() < 10) {
             throw new IllegalArgumentException("Contato telefônico deve ter pelo menos 8 dígitos");
         }
         this.contatoTelefonico = contatoTelefonico;
@@ -98,7 +98,7 @@ public class Artista extends Pessoa implements Credenciavel {
 
     @Override
     public String toString() {
-        return super.toString() + " | Tipo: " + getTipoArtista() + " |Nome Artístico: " + getNomeArtistico() + " | Gênero Musical: " + getGeneroMusical() + " | Contato telefônico: " + getContatoTelefonico();
+        return super.toString() + " | Tipo: " + getTipoArtista() + " | Nome Artístico: " + getNomeArtistico() + " | Gênero Musical: " + getGeneroMusical() + " | Contato telefônico: " + getContatoTelefonico();
     }
 
     @Override
