@@ -1,7 +1,4 @@
 package model;
-
-import model.Artista;
-import model.Palco;
 import model.abstratas.Apresentacao;
 import model.enums.TipoShow;
 
@@ -12,7 +9,6 @@ public class Show extends Apresentacao {
     private double cache;
 
     public Show(String nomeApresentacao, String data, String hora, int duracaoMinutos, Artista artista, TipoShow tipoShow, double cache) {
-
         super(nomeApresentacao, data, hora, duracaoMinutos, artista);
         setTipoShow(tipoShow);
         setCache(cache);
@@ -54,7 +50,7 @@ public class Show extends Apresentacao {
 
     @Override
     public void exibirDetalhes() {
-        System.out.println("\n-----------------------------------");
+        System.out.println("-----------------------------------");
         System.out.println(getTipo());
         System.out.println("ID: " + getId());
         System.out.println("Nome da apresentação: " + getNomeApresentacao() + " | Tipo de Show: " + getTipoShow());

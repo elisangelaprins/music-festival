@@ -1,6 +1,4 @@
 package model;
-import model.Artista;
-import model.Palco;
 import model.abstratas.Apresentacao;
 
 public class Entrevista extends Apresentacao {
@@ -54,7 +52,7 @@ public class Entrevista extends Apresentacao {
 
     @Override
     public void exibirDetalhes() {
-        System.out.println("\n-----------------------------------");
+        System.out.println("-----------------------------------");
         System.out.println(getTipo());
         System.out.println("ID: " + getId());
         System.out.println("Nome da Entrevista: " + getNomeApresentacao());
