@@ -343,45 +343,51 @@ public class MenuPrincipalView {
     }
 
     private void menuPatrocinador() {
-        int opcao;
+        int opcao = 90;
 
         do {
-            System.out.println("=== PATROCINADORES ===");
-            System.out.println("1 - Cadastrar patrocinador");
-            System.out.println("2 - Listar patrocinadores");
-            System.out.println("3 - Alterar patrocinador");
-            System.out.println("4 - Remover patrocinador");
-            System.out.println("5 - Exibir Total Patrocinado");
-            System.out.println("0 - Voltar ao menu inicial");
+            try {
 
-            opcao = lerOpcao();
-            limparBuffer();
+                System.out.println("=== PATROCINADORES ===");
+                System.out.println("1 - Cadastrar patrocinador");
+                System.out.println("2 - Listar patrocinadores");
+                System.out.println("3 - Alterar patrocinador");
+                System.out.println("4 - Remover patrocinador");
+                System.out.println("5 - Exibir Total Patrocinado");
+                System.out.println("0 - Voltar ao menu inicial");
 
-            switch (opcao) {
-                case 1:
-                    patrocinadorController.cadastrarPatrocinador();
-                    break;
+                opcao = lerOpcao();
+                limparBuffer();
 
-                case 2:
-                    patrocinadorController.listarPatrocinadores();
-                    break;
+                switch (opcao) {
+                    case 1:
+                        patrocinadorController.cadastrarPatrocinador();
+                        break;
 
-                case 3:
-                    patrocinadorController.alterarPatrocinador();
-                    break;
+                    case 2:
+                        patrocinadorController.listarPatrocinadores();
+                        break;
 
-                case 4:
-                    patrocinadorController.removerPatrocinador();
-                    break;
+                    case 3:
+                        patrocinadorController.alterarPatrocinador();
+                        break;
 
-                case 5:
-                    patrocinadorController.mostrarTotalPatrocinado();
-                    break;
+                    case 4:
+                        patrocinadorController.removerPatrocinador();
+                        break;
 
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida");
+                    case 5:
+                        patrocinadorController.mostrarTotalPatrocinado();
+                        break;
+
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("O valor inserido não é válido.");
+                limparBuffer();
             }
         } while (opcao != 0);
     }

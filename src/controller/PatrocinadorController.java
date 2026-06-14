@@ -1,4 +1,5 @@
 package controller;
+
 import model.Patrocinador;
 import model.enums.CategoriaPatrocinio;
 import util.ArquivoUtil;
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.InputMismatchException;
+
 public class PatrocinadorController {
     private static final String ARQUIVO = "patrocinadores.dat";
     private final PatrocinadorView view;
@@ -57,6 +60,9 @@ public class PatrocinadorController {
         } catch (IllegalArgumentException e) {
             LogUtil.log(TipoLog.ERRO, "Falha ao cadastrar patrocinador: " + e.getMessage());
             view.mostrarMensagem("Erro: " + e.getMessage());
+        } catch (InputMismatchException e) {
+            LogUtil.log(TipoLog.ERRO, "Falha ao cadastrar patrocinador: Valor inserido inválido.");
+            view.mostrarMensagem("Erro: O valor inserido não é válido.");
         }
     }
 
@@ -77,15 +83,17 @@ public class PatrocinadorController {
     }
 
     public void alterarPatrocinador() {
-        listarPatrocinadores();
-        int id = view.lerId();
-        Patrocinador patrocinador = buscarPorId(id);
-
-        if (patrocinador == null){
-            return;
-        }
-
         try {
+
+
+            listarPatrocinadores();
+            int id = view.lerId();
+            Patrocinador patrocinador = buscarPorId(id);
+
+            if (patrocinador == null) {
+                return;
+            }
+
             String nome = view.lerNome();
             patrocinador.setNome(nome);
 
@@ -106,23 +114,32 @@ public class PatrocinadorController {
         } catch (IllegalArgumentException e) {
             LogUtil.log(TipoLog.ERRO, "Falha ao alterar patrocinador: " + e.getMessage());
             view.mostrarMensagem("Erro: " + e.getMessage());
+        } catch (InputMismatchException e) {
+            LogUtil.log(TipoLog.ERRO, "Falha ao alterar patrocinador: Valor inserido inválido.");
+            view.mostrarMensagem("Erro: O valor inserido não é válido.");
         }
     }
 
     public void removerPatrocinador() {
-        listarPatrocinadores();
-        int id = view.lerId();
-        Patrocinador patrocinador = buscarPorId(id);
+        try {
 
-        if (patrocinador == null) {
-            return;
+            listarPatrocinadores();
+            int id = view.lerId();
+            Patrocinador patrocinador = buscarPorId(id);
+
+            if (patrocinador == null) {
+                return;
+            }
+
+            patrocinadores.remove(id);
+            ArquivoUtil.salvarArquivo(patrocinadores, ARQUIVO);
+
+            LogUtil.log(TipoLog.INFO, "Patrocinador removido: " + patrocinador.getNome());
+            view.mostrarMensagem("Patrocinador removido com sucesso!");
+        } catch (InputMismatchException e) {
+            LogUtil.log(TipoLog.ERRO, "Falha ao remover patrocinador: Valor inserido inválido.");
+            view.mostrarMensagem("Erro: O valor inserido não é válido.");
         }
-
-        patrocinadores.remove(id);
-        ArquivoUtil.salvarArquivo(patrocinadores,ARQUIVO);
-
-        LogUtil.log(TipoLog.INFO, "Patrocinador removido: " + patrocinador.getNome());
-        view.mostrarMensagem("Patrocinador removido com sucesso!");
     }
 
     public void mostrarTotalPatrocinado() {
