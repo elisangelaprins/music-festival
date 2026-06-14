@@ -6,7 +6,7 @@ import java.io.Serializable;
 public abstract class Apresentacao implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int id;
+    private final int id;
     private static int contadorId = 1;
     private String nomeApresentacao;
     private String data;
@@ -21,19 +21,6 @@ public abstract class Apresentacao implements Serializable {
         setDuracaoMinutos(duracaoMinutos);
         setArtista(artista);
         this.id = contadorId++;
-    }
-
-    public Apresentacao(int id, String nomeApresentacao, String data, String hora, int duracaoMinutos, Artista artista) {
-        setId(id);
-        setNomeApresentacao(nomeApresentacao);
-        setData(data);
-        setHora(hora);
-        setDuracaoMinutos(duracaoMinutos);
-        setArtista(artista);
-
-        if (id >= contadorId) {
-            contadorId = id + 1;
-        }
     }
 
     public static void atualizarContador(int id) {
@@ -52,7 +39,7 @@ public abstract class Apresentacao implements Serializable {
 
     public void setNomeApresentacao(String nomeApresentacao) {
         if (nomeApresentacao == null || nomeApresentacao.isEmpty()) {
-            throw new IllegalArgumentException("Nome da Apresentação não pode ser vazio.");
+            throw new IllegalArgumentException("Nome da Apresentação não pode ser vazia.");
         }
         this.nomeApresentacao = nomeApresentacao;
     }
@@ -74,7 +61,7 @@ public abstract class Apresentacao implements Serializable {
 
     public void setHora(String hora) {
         if (hora == null || hora.isEmpty()) {
-            throw new IllegalArgumentException("Hora da Apresentação não pode ser vazio.");
+            throw new IllegalArgumentException("Hora da Apresentação não pode ser vazia.");
         }
         this.hora = hora;
     }
@@ -96,7 +83,7 @@ public abstract class Apresentacao implements Serializable {
 
     public void setArtista(Artista artista) {
         if (artista == null) {
-            throw new IllegalArgumentException("Nome do artista não pode ser nulo.");
+            throw new IllegalArgumentException("O artista não pode ser nulo.");
         }
         this.artista = artista;
     }
@@ -123,14 +110,7 @@ public abstract class Apresentacao implements Serializable {
 
     @Override
     public String toString() {
-        return getTipo() + " | ID: " + id + " | Nome: " + nomeApresentacao + "Data: " + data + " | Hora: " + hora + " | Duração: " + duracaoMinutos + "min" + " | Artista: " + artista.getNomeArtistico();
-    }
-
-    private void setId(int id) {
-        if (id <= 0) {
-            throw new IllegalArgumentException("ID inválido.");
-        }
-        this.id = id;
+        return getTipo() + " | ID: " + id + " | Nome: " + nomeApresentacao + " | Data: " + data + " | Hora: " + hora + " | Duração: " + duracaoMinutos + "min" + " | Artista: " + artista.getNomeArtistico();
     }
 
     public abstract String getTipo();

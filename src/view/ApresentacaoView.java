@@ -1,8 +1,6 @@
 package view;
 
-import model.Artista;
 import model.abstratas.Apresentacao;
-import model.enums.TipoArtista;
 import model.enums.TipoShow;
 
 import java.util.List;
@@ -23,11 +21,6 @@ public class ApresentacaoView {
         scanner.nextLine();
     }
 
-    private int lerOpcao() {
-        System.out.println("Escolha: ");
-        return scanner.nextInt();
-    }
-
     public int lerId() {
         System.out.print("Informe o ID: ");
         int id = scanner.nextInt();
@@ -41,13 +34,13 @@ public class ApresentacaoView {
     }
 
     public String lerHora() {
-        System.out.print("Informe a hora da apresentação 0(Ex.: HH:MM):");
+        System.out.print("Informe a hora da apresentação (Ex.: HH:MM): ");
         return scanner.nextLine();
     }
 
 
     public String lerNomeApresentacao() {
-        System.out.print("Digite o nome da Apresentação:");
+        System.out.print("Digite o nome da Apresentação: ");
         return scanner.nextLine();
     }
 
@@ -72,7 +65,7 @@ public class ApresentacaoView {
     }
 
     public int lerDuracao() {
-        System.out.print("Digite a duração da apresentação (EX.: 60):");
+        System.out.print("Digite a duração da apresentação (EX.: 60): ");
         int duracao = scanner.nextInt();
         limparBuffer();
         return duracao;
@@ -103,6 +96,7 @@ public class ApresentacaoView {
                 return TipoShow.PLAYBACK;
 
             default:
+                System.out.println("Opção inválida. Tente novamente.\n");
                 throw new IllegalArgumentException("Opção inválida");
         }
     }
@@ -119,7 +113,7 @@ public class ApresentacaoView {
     }
 
     public double lerCacheShow() {
-        System.out.print("Digite o valor do cachê do Show (Ex.: 5000,00): R$");
+        System.out.print("Digite o valor do cachê do Show (Ex.: 5000,00): R$ ");
         double cache = scanner.nextDouble();
         limparBuffer();
         return cache;
