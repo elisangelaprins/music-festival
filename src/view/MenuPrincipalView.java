@@ -393,8 +393,10 @@ public class MenuPrincipalView {
     }
 
     private void menuProposta() {
-        int opcao;
+        int opcao = 90;
         do {
+            try {
+
             System.out.println("\n=== PROPOSTAS DE PATROCÍNIO ===");
             System.out.println("1 - Cadastrar proposta");
             System.out.println("2 - Listar propostas");
@@ -422,6 +424,10 @@ public class MenuPrincipalView {
                     break;
                 default:
                     System.out.println("Opção inválida");
+            }
+            } catch (InputMismatchException e) {
+                System.out.println("O valor inserido não é válido.");
+                limparBuffer();
             }
         } while (opcao != 0);
     }
