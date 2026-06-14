@@ -8,17 +8,7 @@ public class Entrevista extends Apresentacao {
     private String temaEntrevista;
 
     public Entrevista(String nomeApresentacao, String nomeEntrevistador, String temaEntrevista, String data, String hora, int duracaoMinutos, Artista artista) {
-
         super(nomeApresentacao, data, hora, duracaoMinutos, artista);
-
-        setNomeEntrevistador(nomeEntrevistador);
-        setTemaEntrevista(temaEntrevista);
-    }
-
-    public Entrevista(int id, String nomeApresentacao, String nomeEntrevistador, String temaEntrevista, String data, String hora, int duracaoMinutos, Artista artista) {
-
-        super(id, nomeApresentacao, data, hora, duracaoMinutos, artista);
-
         setNomeEntrevistador(nomeEntrevistador);
         setTemaEntrevista(temaEntrevista);
     }
@@ -29,7 +19,7 @@ public class Entrevista extends Apresentacao {
 
     public void setNomeEntrevistador(String nomeEntrevistador) {
         if (nomeEntrevistador == null || nomeEntrevistador.isEmpty()){
-            throw new IllegalArgumentException("Erro: Tema da entrevista não pode ser vazio.");
+            throw new IllegalArgumentException("Erro: O nome do entrevistador não pode ser vazio.");
         }
         this.nomeEntrevistador = nomeEntrevistador;
     }
@@ -40,7 +30,7 @@ public class Entrevista extends Apresentacao {
 
     public void setTemaEntrevista(String temaEntrevista) {
         if (temaEntrevista == null || temaEntrevista.isEmpty()) {
-            throw new IllegalArgumentException("Erro: Nome da entrevista não pode ser vazio.");
+            throw new IllegalArgumentException("Erro: O Tema da entrevista não pode ser vazio.");
         }
         this.temaEntrevista = temaEntrevista;
     }

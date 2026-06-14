@@ -12,13 +12,6 @@ public class Show extends Apresentacao {
         super(nomeApresentacao, data, hora, duracaoMinutos, artista);
         setTipoShow(tipoShow);
         setCache(cache);
-
-    }
-
-    public Show(int id, String nomeApresentacao, String data, String hora, int duracaoMinutos, Artista artista, TipoShow tipoShow, double cache) {
-        super(id, nomeApresentacao, data, hora, duracaoMinutos, artista);
-        setTipoShow(tipoShow);
-        setCache(cache);
     }
 
     public TipoShow getTipoShow() {

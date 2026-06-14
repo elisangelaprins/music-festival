@@ -9,10 +9,8 @@ import util.ArquivoUtil;
 import util.LogUtil;
 import util.TipoLog;
 import view.ApresentacaoView;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 public class ApresentacaoController {
     private static final String ARQUIVO = "apresentacao.dat";
@@ -35,14 +33,13 @@ public class ApresentacaoController {
                 }
             }
 
-            LogUtil.log(TipoLog.INFO, ("Arquivo de apresentações carregados com sucesso."));
+            LogUtil.log(TipoLog.INFO, ("Arquivo de apresentações carregado com sucesso."));
         } catch (Exception e) {
             LogUtil.log(TipoLog.AVISO, "Nenhum arquivo de dados prévio encontrado.");
         }
     }
 
     public void cadastrarShow() {
-
         try {
             String nomeApresentacao = view.lerNomeApresentacao();
             String data = view.lerData();
@@ -71,6 +68,9 @@ public class ApresentacaoController {
             LogUtil.log(TipoLog.ERRO, "Falha ao cadastrar apresentação: " + e.getMessage());
 
             view.mostrarMensagem("Erro: " + e.getMessage());
+        } catch (InputMismatchException e) {
+            view.mostrarMensagem("Erro: Insira apenas valores válidos.");
+            view.limparBuffer();
         }
     }
 
@@ -90,8 +90,6 @@ public class ApresentacaoController {
                 throw new IllegalArgumentException("Artista não encontrado.");
             }
 
-            //falta criar palco aqui
-
             Apresentacao novaApresentacao = new Entrevista(nomeApresentacao, nomeEntrevistador, tema, data, hora, duracaoMinutos, artista);
 
             apresentacoes.put(novaApresentacao.getId(), novaApresentacao);
@@ -106,6 +104,9 @@ public class ApresentacaoController {
             LogUtil.log(TipoLog.ERRO, "Falha ao cadastrar entrevista: " + e.getMessage());
 
             view.mostrarMensagem("Erro: " + e.getMessage());
+        } catch (InputMismatchException e) {
+            view.mostrarMensagem("Erro: Insira apenas valores válidos.");
+            view.limparBuffer();
         }
     }
 
@@ -138,68 +139,81 @@ public class ApresentacaoController {
     }
 
     public void listarPorTipo() {
-        int opcao = view.lerTipoListagem();
-        switch (opcao) {
-            case 1:
-                view.exibirApresentacoes(getApresentacoes());
-                break;
-            case 2:
-                view.exibirApresentacoes(getShows());
-                break;
-            case 3:
-                view.exibirApresentacoes(getEntrevistas());
-                break;
-            default:
-                view.mostrarMensagem("Opção inválida.");
+        try {
+            int opcao = view.lerTipoListagem();
+            switch (opcao) {
+                case 1:
+                    view.exibirApresentacoes(getApresentacoes());
+                    break;
+                case 2:
+                    view.exibirApresentacoes(getShows());
+                    break;
+                case 3:
+                    view.exibirApresentacoes(getEntrevistas());
+                    break;
+                default:
+                    view.mostrarMensagem("Opção inválida.");
+            }
+        } catch (InputMismatchException e) {
+            view.mostrarMensagem("Erro: Insira apenas valores válidos.");
+            view.limparBuffer();
         }
     }
 
     public Apresentacao buscarPorId(int id) {
         Apresentacao apresentacao = apresentacoes.get(id);
         if (apresentacao == null) {
+            LogUtil.log(TipoLog.AVISO, "Apresentação não encontrada. ID: " + id);
             view.mostrarMensagem("Apresentação não encontrada");
         }
         return apresentacao;
     }
 
     public void exibirPorId() {
-        int id = view.lerId();
-        Apresentacao apresentacao = apresentacoes.get(id);
-        if (apresentacao != null) {
-            apresentacao.exibirDetalhes();
-        } else {
-            LogUtil.log(TipoLog.AVISO, "Apresentação não encontrada. ID: " + id);
-            view.mostrarMensagem("Apresentação não encontrada");
+        try {
+            int id = view.lerId();
+            Apresentacao apresentacao = buscarPorId(id);
+            if (apresentacao != null) {
+                apresentacao.exibirDetalhes();
+            }
+        } catch (InputMismatchException e) {
+            view.mostrarMensagem("Erro: Insira apenas valores válidos.");
+            view.limparBuffer();
         }
     }
 
     public void buscarPorArtista() {
-        String nomeArtista = view.lerNomeArtista();
-        List<Apresentacao> encontrados = new ArrayList<>();
+        try {
+            String nomeArtista = view.lerNomeArtista();
+            List<Apresentacao> encontrados = new ArrayList<>();
 
-        for (Apresentacao a : apresentacoes.values()) {
-            if (a.getArtista().getNome().equalsIgnoreCase(nomeArtista) || a.getArtista().getNomeArtistico().equalsIgnoreCase(nomeArtista)) {
-                encontrados.add(a);
+            for (Apresentacao a : apresentacoes.values()) {
+                if (a.getArtista() !=null && (a.getArtista().getNome().equalsIgnoreCase(nomeArtista) || a.getArtista().getNomeArtistico().equalsIgnoreCase(nomeArtista))) {
+                    encontrados.add(a);
+                }
             }
+            if (encontrados.isEmpty()) {
+                LogUtil.log(TipoLog.AVISO, "Busca por artista sem resultado: " + nomeArtista);
+                view.mostrarMensagem("Nenhuma apresentação encontrada");
+                return;
+            }
+            view.exibirApresentacoes(encontrados);
+            LogUtil.log(TipoLog.INFO, "Busca por artista realizada: " + nomeArtista);
+        } catch (InputMismatchException e) {
+            view.mostrarMensagem("Erro: Insira apenas valores válidos.");
+            view.limparBuffer();
         }
-        if (encontrados.isEmpty()) {
-            LogUtil.log(TipoLog.AVISO, "Busca por artista sem resultado: " + nomeArtista);
-            view.mostrarMensagem("Nenhuma apresentação encontrada");
-            return;
-        }
-        view.exibirApresentacoes(encontrados);
     }
 
     public void alterarApresentacao() {
-        listarApresentacoes();
-        int id = view.lerId();
-        Apresentacao apresentacao = buscarPorId(id);
-
-        if (apresentacao == null) {
-            return;
-        }
-
         try {
+            listarApresentacoes();
+            int id = view.lerId();
+            Apresentacao apresentacao = buscarPorId(id);
+
+            if (apresentacao == null) {
+                return;
+            }
             if (apresentacao instanceof Show) {
                 alterarShow((Show) apresentacao);
             } else if (apresentacao instanceof Entrevista) {
@@ -212,25 +226,50 @@ public class ApresentacaoController {
         } catch (IllegalArgumentException e) {
             LogUtil.log(TipoLog.ERRO, "Falha ao alterar apresentação: " + e.getMessage());
             view.mostrarMensagem("Erro: " + e.getMessage());
+        } catch (InputMismatchException e) {
+            view.mostrarMensagem("Erro: Insira apenas valores válidos.");
+            view.limparBuffer();
         }
     }
 
     public void removerApresentacao() {
-        listarApresentacoes();
-        int id = view.lerId();
+        try {
+            listarApresentacoes();
+            int id = view.lerId();
 
-        Apresentacao apresentacao = buscarPorId(id);
+            Apresentacao apresentacao = buscarPorId(id);
 
-        if (apresentacao == null) {
-            return;
+            if (apresentacao == null) {
+                return;
+            }
+            apresentacoes.remove(id);
+
+            ArquivoUtil.salvarArquivo(apresentacoes, ARQUIVO);
+
+            LogUtil.log(TipoLog.INFO, "Apresentação removida: " + apresentacao.getNomeApresentacao());
+
+            view.mostrarMensagem("Apresentação removida com sucesso!");
+        } catch (InputMismatchException e) {
+            view.mostrarMensagem("Erro: Insira apenas valores válidos.");
+            view.limparBuffer();
         }
-        apresentacoes.remove(id);
+    }
 
-        ArquivoUtil.salvarArquivo(apresentacoes, ARQUIVO);
+    public void mostrarTotalCaches() {
+        double total = 0;
+        for (Apresentacao a : apresentacoes.values()) {
+            if (a instanceof Show) {
+                total += ((Show) a).getCache();
+            }
+        }
+        if (total > 0) {
+            LogUtil.log(TipoLog.INFO,"Cálculo de cachês realizado. Total: R$ " + total);
+            view.mostrarMensagem("\n === Total gasto com cachês de shows: R$ " + total + " ===\n");
+        } else {
+            LogUtil.log(TipoLog.AVISO,"Tentativa de mostrar cachês, mas nenhum valor de show foi registrado.");
+            view.mostrarMensagem("Nenhum show com cachê cadastrado até o momento.\n");
+        }
 
-        LogUtil.log(TipoLog.INFO, "Apresentação removida: " + apresentacao.getNomeApresentacao());
-
-        view.mostrarMensagem("Apresentação removida com sucesso!");
     }
 
     private void alterarShow(Show show) {
@@ -263,15 +302,5 @@ public class ApresentacaoController {
         entrevista.setData(data);
         entrevista.setHora(hora);
         entrevista.setDuracaoMinutos(duracao);
-    }
-
-    public void mostrarTotalCaches() {
-        double total = 0;
-        for (Apresentacao a : apresentacoes.values()) {
-            if (a instanceof Show) {
-                total += ((Show) a).getCache();
-            }
-        }
-        view.mostrarMensagem("Total gasto com cachês de shows: R$ " + total + "\n");
     }
 }
