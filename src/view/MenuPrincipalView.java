@@ -232,7 +232,7 @@ public class MenuPrincipalView {
     }
 
     private void menuIngresso() {
-        int opcao = 90;
+        int opcao = -1;
         do {
             try {
                 System.out.println("=== INGRESSO ===");
