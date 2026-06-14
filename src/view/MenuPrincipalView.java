@@ -10,6 +10,7 @@ public class MenuPrincipalView {
     private final Scanner scanner;
     private final ArtistaController artistaController;
     private final VisitanteController visitanteController;
+    private final IngressoController ingressoController;
     private final ApresentacaoController apresentacaoController;
     private final PatrocinadorController patrocinadorController;
     private final PropostaController propostaController;
@@ -22,6 +23,8 @@ public class MenuPrincipalView {
         this.artistaController = new ArtistaController(artistaView);
         VisitanteView visitanteView = new VisitanteView(scanner);
         this.visitanteController = new VisitanteController(visitanteView);
+        IngressoView ingressoView = new IngressoView(scanner);
+        this.ingressoController = new IngressoController(ingressoView);
         ApresentacaoView apresentacaoView = new ApresentacaoView(scanner);
         this.apresentacaoController = new ApresentacaoController(apresentacaoView, artistaController);
         PatrocinadorView patrocinadorView = new PatrocinadorView(scanner);
@@ -54,9 +57,9 @@ public class MenuPrincipalView {
                 case 3:
                     menuVisitante();
                     break;
-//                case 4:
-//                    menuIngresso();
-//                    break;
+                case 4:
+                    menuIngresso();
+                    break;
                 case 5:
                     menuStaff();
                     break;
@@ -206,6 +209,48 @@ public class MenuPrincipalView {
                     break;
                 case 5:
                     visitanteController.removerVisitante();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+                    break;
+            }
+        } while (opcao != 0);
+    }
+
+    private void menuIngresso() {
+        int opcao;
+        do {
+            System.out.println("=== INGRESSO ===");
+            System.out.println("1 - Cadastrar ingresso");
+            System.out.println("2 - Listar ingressos");
+            System.out.println("3 - Buscar ingresso pela apresentação");
+            System.out.println("4 - Buscar ingresso pelo visitante");
+            System.out.println("5 - Alterar ingresso");
+            System.out.println("6 - Remover ingresso");
+            System.out.println("0 - Voltar ao menu inicial");
+            opcao = lerOpcao();
+            limparBuffer();
+
+            switch (opcao) {
+                case 1:
+                    ingressoController.cadastrarIngresso(visitanteController.getVisitantes(), apresentacaoController.getApresentacoes());
+                    break;
+                case 2:
+                    ingressoController.listarIngressos();
+                    break;
+                case 3:
+                    ingressoController.buscarPorApresentacao();
+                    break;
+                case 4:
+                    ingressoController.buscarPorVisitante();
+                    break;
+                case 5:
+                    ingressoController.alterarIngresso(visitanteController.getVisitantes());
+                    break;
+                case 6:
+                    ingressoController.removerIngresso();
                     break;
                 case 0:
                     break;
