@@ -4,6 +4,7 @@ import controller.*;
 import util.LogUtil;
 import util.TipoLog;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MenuPrincipalView {
@@ -41,44 +42,50 @@ public class MenuPrincipalView {
     public void iniciar() {
         LogUtil.log(TipoLog.INFO, "Sistema iniciado pelo usuário");
 
-        int opcao;
+        int opcao = 90;
         do {
-            exibirMenu();
-            opcao = lerOpcao();
-            limparBuffer();
 
-            switch (opcao) {
-                case 1:
-                    menuArtista();
-                    break;
-                case 2:
-                    menuApresentacao();
-                    break;
-                case 3:
-                    menuVisitante();
-                    break;
-                case 4:
-                    menuIngresso();
-                    break;
-                case 5:
-                    menuStaff();
-                    break;
-                case 6:
-                    menuCredencial();
-                    break;
-                case 7:
-                    menuPatrocinador();
-                    break;
-                case 8:
-                    menuProposta();
-                    break;
-                case 0:
-                    LogUtil.log(TipoLog.INFO, "Sistema encerrado pelo usuário.");
-                    System.out.println("Encerrando...");
-                    break;
+            try {
+                exibirMenu();
+                opcao = lerOpcao();
+                limparBuffer();
 
-                default:
-                    System.out.println("Opção inválida.");
+                switch (opcao) {
+                    case 1:
+                        menuArtista();
+                        break;
+                    case 2:
+                        menuApresentacao();
+                        break;
+                    case 3:
+                        menuVisitante();
+                        break;
+                    case 4:
+                        menuIngresso();
+                        break;
+                    case 5:
+                        menuStaff();
+                        break;
+                    case 6:
+                        menuCredencial();
+                        break;
+                    case 7:
+                        menuPatrocinador();
+                        break;
+                    case 8:
+                        menuProposta();
+                        break;
+                    case 0:
+                        LogUtil.log(TipoLog.INFO, "Sistema encerrado pelo usuário.");
+                        System.out.println("Encerrando...");
+                        break;
+
+                    default:
+                        System.out.println("Opção inválida.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Insira um valor válido.");
+                limparBuffer();
             }
         } while (opcao != 0);
         fecharScanner();
