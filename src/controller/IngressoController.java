@@ -9,10 +9,7 @@ import util.LogUtil;
 import util.TipoLog;
 import view.IngressoView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class IngressoController {
     private static final String ARQUIVO = "ingressos.dat";
@@ -121,6 +118,9 @@ public class IngressoController {
             LogUtil.log(TipoLog.ERRO,"Falha ao cadastrar ingresso: "+e.getMessage());
 
             view.mostrarMsg("Falha ao cadastrar ingresso: "+e.getMessage());
+        } catch (InputMismatchException e) {
+            view.mostrarMsg("Insira um valor válido.");
+            view.limparBuffer();
         }
 
     }
@@ -134,61 +134,77 @@ public class IngressoController {
     }
 
     public void buscarPorApresentacao() {
-        ArrayList<Ingresso> ingressosEncontrados = new ArrayList<>();
-        int idApresentacao = view.lerIdApresentacao();
-        view.limparBuffer();
+        try {
+            ArrayList<Ingresso> ingressosEncontrados = new ArrayList<>();
+            int idApresentacao = view.lerIdApresentacao();
+            view.limparBuffer();
 
-        for (Ingresso i : ingressos.values()) {
-            Apresentacao apresentacaoFiltro = i.getApresentacao();
-            if (apresentacaoFiltro.getId() == idApresentacao) {
-                ingressosEncontrados.add(i);
+            for (Ingresso i : ingressos.values()) {
+                Apresentacao apresentacaoFiltro = i.getApresentacao();
+                if (apresentacaoFiltro.getId() == idApresentacao) {
+                    ingressosEncontrados.add(i);
+                }
             }
-        }
 
-        if (ingressosEncontrados.isEmpty()) {
-            view.mostrarMsg("Nenhum ingresso encontrado.");
-            return;
-        }
+            if (ingressosEncontrados.isEmpty()) {
+                view.mostrarMsg("Nenhum ingresso encontrado.");
+                return;
+            }
 
-        for (Ingresso i : ingressosEncontrados) {
-            i.exibirDetalhes();
+            for (Ingresso i : ingressosEncontrados) {
+                i.exibirDetalhes();
+            }
+            LogUtil.log(TipoLog.INFO,"Busca por ingresso realizada: Apresentação id " +idApresentacao);
+        } catch (InputMismatchException e) {
+            view.mostrarMsg("Insira um valor válido.");
+            view.limparBuffer();
         }
-        LogUtil.log(TipoLog.INFO,"Busca por ingresso realizada: Apresentação id " +idApresentacao);
     }
 
     public void buscarPorVisitante() {
-        ArrayList<Ingresso> ingressosEncontrados = new ArrayList<>();
-        int idVisitante = view.lerIdVisitante();
-        view.limparBuffer();
+        try {
+            ArrayList<Ingresso> ingressosEncontrados = new ArrayList<>();
+            int idVisitante = view.lerIdVisitante();
+            view.limparBuffer();
 
-        for (Ingresso i : ingressos.values()) {
-            Visitante visitanteFiltro = i.getVisitante();
-            if (visitanteFiltro.getId() == idVisitante) {
-                ingressosEncontrados.add(i);
+            for (Ingresso i : ingressos.values()) {
+                Visitante visitanteFiltro = i.getVisitante();
+                if (visitanteFiltro.getId() == idVisitante) {
+                    ingressosEncontrados.add(i);
+                }
             }
-        }
 
-        if (ingressosEncontrados.isEmpty()) {
-            view.mostrarMsg("Nenhum ingresso encontrado.");
-            return;
-        }
+            if (ingressosEncontrados.isEmpty()) {
+                view.mostrarMsg("Nenhum ingresso encontrado.");
+                return;
+            }
 
-        for (Ingresso i : ingressosEncontrados) {
-            i.exibirDetalhes();
+            for (Ingresso i : ingressosEncontrados) {
+                i.exibirDetalhes();
+            }
+            LogUtil.log(TipoLog.INFO,"Busca por ingresso realizada: Visitante id " +idVisitante);
+        } catch (InputMismatchException e) {
+            view.mostrarMsg("Insira um valor válido.");
+            view.limparBuffer();
         }
-        LogUtil.log(TipoLog.INFO,"Busca por ingresso realizada: Visitante id " +idVisitante);
     }
 
     public void alterarIngresso(List<Visitante> visitantes) {
-        listarIngressos();
-        int id = view.lerIdIngresso();
-        view.limparBuffer();
+        Ingresso ingressoAlterado = null;
+        try {
+            listarIngressos();
+            int id = view.lerIdIngresso();
+            view.limparBuffer();
 
-        Ingresso ingressoAlterado = ingressos.get(id);
+            ingressoAlterado = ingressos.get(id);
 
-        if (ingressoAlterado == null) {
-            view.mostrarMsg("Ingresso de id " +id+ " não encontrado.");
-            return;
+            if (ingressoAlterado == null) {
+                view.mostrarMsg("Ingresso de id " +id+ " não encontrado.");
+                return;
+            }
+        } catch (InputMismatchException e) {
+            view.mostrarMsg("Insira um valor válido.");
+            view.limparBuffer();
         }
 
         try {
@@ -260,27 +276,34 @@ public class IngressoController {
             LogUtil.log(TipoLog.ERRO,"Falha ao alterar ingresso: "+e.getMessage());
 
             view.mostrarMsg("Erro: " +e.getMessage());
+        } catch (InputMismatchException e) {
+            view.mostrarMsg("Insira um valor válido.");
         }
     }
 
     public void removerIngresso() {
+        Ingresso ingresso = null;
         listarIngressos();
-        int id = view.lerIdIngresso();
-        view.limparBuffer();
-        Ingresso ingresso = ingressos.get(id);
+        try {
+            int id = view.lerIdIngresso();
+            view.limparBuffer();
+            ingresso = ingressos.get(id);
 
-        if (ingresso == null) {
-            view.mostrarMsg("Ingresso de id " +id+ " não encontrado.");
-            return;
+            if (ingresso == null) {
+                view.mostrarMsg("Ingresso de id " +id+ " não encontrado.");
+                return;
+            }
+
+            ingressos.remove(id);
+
+            ArquivoUtil.salvarArquivo(ingressos, ARQUIVO);
+
+            LogUtil.log(TipoLog.INFO,"Ingresso removido: id " +ingresso.getId());
+
+            view.mostrarMsg("Ingresso removido com sucesso!");
+        } catch (InputMismatchException e) {
+            view.mostrarMsg("Insira um valor válido");
         }
-
-        ingressos.remove(id);
-
-        ArquivoUtil.salvarArquivo(ingressos, ARQUIVO);
-
-        LogUtil.log(TipoLog.INFO,"Ingresso removido: id " +ingresso.getId());
-
-        view.mostrarMsg("Ingresso removido com sucesso!");
     }
 
     private double emitirIngresso(double valor) {

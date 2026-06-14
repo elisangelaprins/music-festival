@@ -227,43 +227,48 @@ public class MenuPrincipalView {
     }
 
     private void menuIngresso() {
-        int opcao;
+        int opcao = 90;
         do {
-            System.out.println("=== INGRESSO ===");
-            System.out.println("1 - Cadastrar ingresso");
-            System.out.println("2 - Listar ingressos");
-            System.out.println("3 - Buscar ingresso pela apresentação");
-            System.out.println("4 - Buscar ingresso pelo visitante");
-            System.out.println("5 - Alterar ingresso");
-            System.out.println("6 - Remover ingresso");
-            System.out.println("0 - Voltar ao menu inicial");
-            opcao = lerOpcao();
-            limparBuffer();
+            try {
+                System.out.println("=== INGRESSO ===");
+                System.out.println("1 - Cadastrar ingresso");
+                System.out.println("2 - Listar ingressos");
+                System.out.println("3 - Buscar ingresso pela apresentação");
+                System.out.println("4 - Buscar ingresso pelo visitante");
+                System.out.println("5 - Alterar ingresso");
+                System.out.println("6 - Remover ingresso");
+                System.out.println("0 - Voltar ao menu inicial");
+                opcao = lerOpcao();
+                limparBuffer();
 
-            switch (opcao) {
-                case 1:
-                    ingressoController.cadastrarIngresso(visitanteController.getVisitantes(), apresentacaoController.getApresentacoes());
-                    break;
-                case 2:
-                    ingressoController.listarIngressos();
-                    break;
-                case 3:
-                    ingressoController.buscarPorApresentacao();
-                    break;
-                case 4:
-                    ingressoController.buscarPorVisitante();
-                    break;
-                case 5:
-                    ingressoController.alterarIngresso(visitanteController.getVisitantes());
-                    break;
-                case 6:
-                    ingressoController.removerIngresso();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida.");
-                    break;
+                switch (opcao) {
+                    case 1:
+                        ingressoController.cadastrarIngresso(visitanteController.getVisitantes(), apresentacaoController.getApresentacoes());
+                        break;
+                    case 2:
+                        ingressoController.listarIngressos();
+                        break;
+                    case 3:
+                        ingressoController.buscarPorApresentacao();
+                        break;
+                    case 4:
+                        ingressoController.buscarPorVisitante();
+                        break;
+                    case 5:
+                        ingressoController.alterarIngresso(visitanteController.getVisitantes());
+                        break;
+                    case 6:
+                        ingressoController.removerIngresso();
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Opção inválida.");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Insira um valor válido.");
+                limparBuffer();
             }
         } while (opcao != 0);
     }
