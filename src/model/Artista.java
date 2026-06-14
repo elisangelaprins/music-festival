@@ -71,7 +71,7 @@ public class Artista extends Pessoa implements Credenciavel {
             throw new IllegalArgumentException("O contato telefônico não pode ser vazio.");
         }
         if (contatoTelefonico.length() < 10) {
-            throw new IllegalArgumentException("Contato telefônico deve ter pelo menos 8 dígitos");
+            throw new IllegalArgumentException("Contato telefônico deve ter pelo menos 10 dígitos");
         }
         this.contatoTelefonico = contatoTelefonico;
 
