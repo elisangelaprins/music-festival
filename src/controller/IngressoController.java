@@ -190,24 +190,18 @@ public class IngressoController {
     }
 
     public void alterarIngresso(List<Visitante> visitantes) {
-        Ingresso ingressoAlterado = null;
         try {
             listarIngressos();
             int id = view.lerIdIngresso();
             view.limparBuffer();
 
-            ingressoAlterado = ingressos.get(id);
+            Ingresso ingressoAlterado = ingressos.get(id);
 
             if (ingressoAlterado == null) {
                 view.mostrarMsg("Ingresso de id " +id+ " não encontrado.");
                 return;
             }
-        } catch (InputMismatchException e) {
-            view.mostrarMsg("Insira um valor válido.");
-            view.limparBuffer();
-        }
 
-        try {
             TipoIngresso tipoIngresso = view.lerTipoIngresso();
 
             if (visitantes.isEmpty()) {
