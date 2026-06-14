@@ -353,7 +353,7 @@ public class MenuPrincipalView {
     }
 
     private void menuPatrocinador() {
-        int opcao = 90;
+        int opcao = -1;
 
         do {
             try {
