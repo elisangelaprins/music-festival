@@ -24,8 +24,24 @@ public class CredencialView {
         return scanner.nextLine();
     }
 
+    public int lerTipoTitular() {
+        System.out.println("Informe o tipo de titular da credencial:");
+        System.out.println("1 - Staff");
+        System.out.println("2 - Artista");
+        int tipo = scanner.nextInt();
+        limparBuffer();
+        return tipo;
+    }
+
     public int lerStaffId() {
         System.out.println("Informe o id do Staff dono da credencial: ");
+        int id = scanner.nextInt();
+        limparBuffer();
+        return id;
+    }
+
+    public int lerArtistaId() {
+        System.out.println("Informe o id do Artista dono da credencial: ");
         int id = scanner.nextInt();
         limparBuffer();
         return id;

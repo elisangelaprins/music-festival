@@ -31,7 +31,7 @@ public class MenuPrincipalView {
         StaffView staffView = new StaffView(scanner);
         this.staffController = new StaffController(staffView);
         CredencialView credencialView = new CredencialView(scanner);
-        this.credencialController = new CredencialController(credencialView, staffController);
+        this.credencialController = new CredencialController(credencialView, staffController, artistaController);
     }
 
 
@@ -51,28 +51,22 @@ public class MenuPrincipalView {
                 case 2:
                     menuApresentacao();
                     break;
-//                case 3:
-//                    menuPalco();
-//                    break;
-//                case 4:
-//                    menuAgenda();
-//                    break;
-                case 5:
+                case 3:
                     menuVisitante();
                     break;
-//                case 6:
+//                case 4:
 //                    menuIngresso();
 //                    break;
-                case 7:
+                case 5:
                     menuStaff();
                     break;
-                case 8:
+                case 6:
                     menuCredencial();
                     break;
-                case 9:
+                case 7:
                     menuPatrocinador();
                     break;
-                case 10:
+                case 8:
                     menuProposta();
                     break;
                 case 0:
@@ -91,14 +85,12 @@ public class MenuPrincipalView {
         System.out.println("=== FESTIVAL DE MÚSICA ===");
         System.out.println("1 - Artistas");
         System.out.println("2 - Apresentações");
-        System.out.println("3 - Palcos");
-        System.out.println("4 - Agenda");
-        System.out.println("5 - Visitante");
-        System.out.println("6 - Ingresso");
-        System.out.println("7 - Staff");
-        System.out.println("8 - Credencial");
-        System.out.println("9 - Patrocinador");
-        System.out.println("10 - Propostas");
+        System.out.println("3 - Visitante");
+        System.out.println("4 - Ingresso");
+        System.out.println("5 - Staff");
+        System.out.println("6 - Credencial");
+        System.out.println("7 - Patrocinador");
+        System.out.println("8 - Propostas");
         System.out.println("0 - Sair");
     }
 
@@ -134,44 +126,6 @@ public class MenuPrincipalView {
                     break;
                 default:
                     System.out.println("Opção inválida");
-            }
-        } while (opcao != 0);
-    }
-
-    private void menuVisitante() {
-        int opcao;
-        do {
-            System.out.println("=== VISITANTES ===");
-            System.out.println("1 - Cadastrar visitante");
-            System.out.println("2 - Listar visitantes");
-            System.out.println("3 - Buscar visitante pelo documento");
-            System.out.println("4 - Alterar visitante");
-            System.out.println("5 - Remover visitante");
-            System.out.println("0 - Voltar ao menu inicial");
-            opcao = lerOpcao();
-            limparBuffer();
-
-            switch (opcao) {
-                case 1:
-                    visitanteController.cadastrarVisitante();
-                    break;
-                case 2:
-                    visitanteController.listarVisitantes();
-                    break;
-                case 3:
-                    visitanteController.buscarPorDocumento();
-                    break;
-                case 4:
-                    visitanteController.alterarVisitante();
-                    break;
-                case 5:
-                    visitanteController.removerVisitante();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida.");
-                    break;
             }
         } while (opcao != 0);
     }
@@ -224,6 +178,108 @@ public class MenuPrincipalView {
         } while (opcao != 0);
     }
 
+    private void menuVisitante() {
+        int opcao;
+        do {
+            System.out.println("=== VISITANTES ===");
+            System.out.println("1 - Cadastrar visitante");
+            System.out.println("2 - Listar visitantes");
+            System.out.println("3 - Buscar visitante pelo documento");
+            System.out.println("4 - Alterar visitante");
+            System.out.println("5 - Remover visitante");
+            System.out.println("0 - Voltar ao menu inicial");
+            opcao = lerOpcao();
+            limparBuffer();
+
+            switch (opcao) {
+                case 1:
+                    visitanteController.cadastrarVisitante();
+                    break;
+                case 2:
+                    visitanteController.listarVisitantes();
+                    break;
+                case 3:
+                    visitanteController.buscarPorDocumento();
+                    break;
+                case 4:
+                    visitanteController.alterarVisitante();
+                    break;
+                case 5:
+                    visitanteController.removerVisitante();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+                    break;
+            }
+        } while (opcao != 0);
+    }
+
+    private void menuStaff() {
+        int opcao;
+        do {
+            System.out.println("=== STAFF ===");
+            System.out.println("1 - Cadastrar staff");
+            System.out.println("2 - Listar staffs");
+            System.out.println("3 - Alterar staff");
+            System.out.println("4 - Remover staff");
+            System.out.println("0 - Voltar ao menu inicial");
+            opcao = lerOpcao();
+            limparBuffer();
+            switch (opcao) {
+                case 1:
+                    staffController.cadastrarStaff();
+                    break;
+                case 2:
+                    staffController.listarStaffs();
+                    break;
+                case 3:
+                    staffController.alterarStaff();
+                    break;
+                case 4:
+                    staffController.removerStaff();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opção inválida");
+            }
+        } while (opcao != 0);
+    }
+
+    private void menuCredencial() {
+        int opcao;
+        do {
+            System.out.println("=== CREDENCIAIS ===");
+            System.out.println("1 - Cadastrar credencial");
+            System.out.println("2 - Listar credenciais");
+            System.out.println("3 - Alterar credencial");
+            System.out.println("4 - Remover credencial");
+            System.out.println("0 - Voltar ao menu inicial");
+            opcao = lerOpcao();
+            limparBuffer();
+            switch (opcao) {
+                case 1:
+                    credencialController.cadastrarCredencial();
+                    break;
+                case 2:
+                    credencialController.listarCredenciais();
+                    break;
+                case 3:
+                    credencialController.alterarCredencial();
+                    break;
+                case 4:
+                    credencialController.removerCredencial();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opção inválida");
+            }
+        } while (opcao != 0);
+    }
+
     private void menuPatrocinador() {
         int opcao;
 
@@ -267,38 +323,6 @@ public class MenuPrincipalView {
             }
         } while (opcao != 0);
     }
-    private void menuStaff() {
-        int opcao;
-        do {
-            System.out.println("=== STAFF ===");
-            System.out.println("1 - Cadastrar staff");
-            System.out.println("2 - Listar staffs");
-            System.out.println("3 - Alterar staff");
-            System.out.println("4 - Remover staff");
-            System.out.println("0 - Voltar ao menu inicial");
-            opcao = lerOpcao();
-            limparBuffer();
-            switch (opcao) {
-                case 1:
-                    staffController.cadastrarStaff();
-                    break;
-                case 2:
-                    staffController.listarStaffs();
-                    break;
-                case 3:
-                    staffController.alterarStaff();
-                    break;
-                case 4:
-                    staffController.removerStaff();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida");
-            }
-        } while (opcao != 0);
-    }
-
 
     private void menuProposta() {
         int opcao;
