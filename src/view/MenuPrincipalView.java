@@ -189,7 +189,7 @@ public class MenuPrincipalView {
     }
 
     private void menuVisitante() {
-        int opcao = 90;
+        int opcao = -1;
         do {
             try {
                 System.out.println("=== VISITANTES ===");
