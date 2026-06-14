@@ -82,13 +82,13 @@ public abstract class Pessoa implements Serializable {
 
     @Override
     public String toString() {
-        return getTipo() + " | ID: " + id + " | Nome: " + nome + "\n" + tipoDocumento.name() +": " + documento;
+        return getTipo() + " | ID: " + id + " | Nome: " + nome + " | " + tipoDocumento.name() +": " + documento;
     }
 
     private TipoDocumento validarTipoDocumento(TipoDocumento tipoDocumento) {
 
         if (tipoDocumento == null) {
-            throw new IllegalArgumentException("Tipo de documento não pode ser vazio.");
+            throw new IllegalArgumentException("Tipo de documento não pode ser nulo.");
         }
         return tipoDocumento;
     }

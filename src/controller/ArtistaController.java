@@ -8,10 +8,8 @@ import util.ArquivoUtil;
 import util.LogUtil;
 import util.TipoLog;
 import view.ArtistaView;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 public class ArtistaController {
     private static final String ARQUIVO = "artistas.dat";
@@ -32,7 +30,7 @@ public class ArtistaController {
                 }
             }
 
-            LogUtil.log(TipoLog.INFO, ("Arquivo de artistas carregados com sucesso."));
+            LogUtil.log(TipoLog.INFO, ("Arquivo de artistas carregado com sucesso."));
         } catch (Exception e) {
             LogUtil.log(TipoLog.AVISO, "Nenhum arquivo de dados prévio encontrado.");
         }
@@ -54,7 +52,6 @@ public class ArtistaController {
             String generoMusical = view.lerGeneroMusical();
             String contatoTelefonico = view.lerContatoTelefonico();
 
-
             Artista novoArtista = new Artista(nome, tipoDocumento, documento, tipoArtista, nomeArtistico, generoMusical, contatoTelefonico);
 
             artistas.put(novoArtista.getId(), novoArtista);
@@ -69,6 +66,9 @@ public class ArtistaController {
             LogUtil.log(TipoLog.ERRO, "Falha ao cadastrar artista: " + e.getMessage());
 
             view.mostrarMensagem("Erro: " + e.getMessage());
+        } catch (InputMismatchException e) {
+            view.mostrarMensagem("Erro: Insira apenas valores válidos.");
+            view.limparBuffer();
         }
     }
 
@@ -76,7 +76,7 @@ public class ArtistaController {
         view.exibirArtistas(getArtistas());
     }
 
-    public void buscarPorNome(){
+    public void buscarPorNome() {
         String nome = view.lerNomeBusca();
 
         List<Artista> encontrados = new ArrayList<>();
@@ -106,9 +106,9 @@ public class ArtistaController {
         Artista artista = artistas.get(id);
 
         if (artista == null) {
-            view.mostrarMensagem("Artista não encontrado");
+            LogUtil.log(TipoLog.AVISO, "Artista não encontrado. ID: " + id);
+            view.mostrarMensagem("Artista não encontrado.");
         }
-
         return artista;
     }
 
@@ -122,15 +122,14 @@ public class ArtistaController {
     }
 
     public void alterarArtista() {
-        listarArtistas();
-        int id = view.lerId();
-        Artista artista = buscarPorId(id);
-
-        if (artista == null) {
-            return;
-        }
-
         try {
+            listarArtistas();
+            int id = view.lerId();
+            Artista artista = buscarPorId(id);
+
+            if (artista == null) {
+                return;
+            }
             String nome = view.lerNome();
             artista.setNome(nome);
 
@@ -150,31 +149,36 @@ public class ArtistaController {
 
             LogUtil.log(TipoLog.INFO, "Artista alterado: " + artista.getNome());
 
-            view.mostrarMensagem("Artista Alterado com sucesso!");
+            view.mostrarMensagem("Artista alterado com sucesso!");
 
         } catch (IllegalArgumentException e) {
             LogUtil.log(TipoLog.ERRO, "Falha ao alterar artista: " + e.getMessage());
-
             view.mostrarMensagem("Erro: " + e.getMessage());
+
+        } catch (InputMismatchException e) {
+            view.mostrarMensagem("Erro: Insira apenas valores válidos.");
+            view.limparBuffer();
         }
     }
 
     public void removerArtista() {
-        listarArtistas();
-        int id = view.lerId();
-        Artista artista = buscarPorId(id);
+        try {
+            listarArtistas();
+            int id = view.lerId();
+            Artista artista = buscarPorId(id);
 
-        if (artista == null) {
-            return;
+            if (artista == null) {
+                return;
+            }
+
+            artistas.remove(id);
+            ArquivoUtil.salvarArquivo(artistas, ARQUIVO);
+            LogUtil.log(TipoLog.INFO, "Artista removido: " + artista.getNome());
+            view.mostrarMensagem("Artista removido com sucesso!");
+
+        } catch (InputMismatchException e) {
+            view.mostrarMensagem("Erro: Insira apenas valores válidos.");
+            view.limparBuffer();
         }
-
-        artistas.remove(id);
-
-        ArquivoUtil.salvarArquivo(artistas, ARQUIVO);
-
-        LogUtil.log(TipoLog.INFO, "Artista removido: " + artista.getNome());
-
-        view.mostrarMensagem("Artista removido com sucesso!");
-
     }
 }

@@ -48,11 +48,7 @@ public class ArtistaView {
 
     public String lerDocumento(TipoDocumento tipoDocumento) {
         System.out.print("Informe o número do documento: ");
-        String documento = scanner.nextLine();
-
-        tipoDocumento.validar(documento);
-        return documento;
-
+        return scanner.nextLine();
     }
 
     public TipoArtista lerTipoArtista(){
@@ -76,7 +72,7 @@ public class ArtistaView {
                 return TipoArtista.BANDA;
 
             default:
-                throw new IllegalArgumentException("Opção inválida");
+                throw new IllegalArgumentException("Opção inválida.");
         }
     }
 
@@ -85,7 +81,7 @@ public class ArtistaView {
         if (tipoArtista == TipoArtista.SOLO) {
             System.out.print("Informe o nome artístico: ");
         } else if (tipoArtista == TipoArtista.DUPLA) {
-            System.out.print("Informe o nome da Dupla:");
+            System.out.print("Informe o nome da Dupla: ");
         } else {
             System.out.print("Informe o nome da Banda: ");
         }
@@ -108,7 +104,7 @@ public class ArtistaView {
     }
 
     public int lerId() {
-        System.out.print("Informe o id: ");
+        System.out.print("Informe o ID: ");
         int id = scanner.nextInt();
         limparBuffer();
         return id;
@@ -116,7 +112,7 @@ public class ArtistaView {
 
     public void exibirArtistas(List<Artista> artistas) {
         if (artistas.isEmpty()) {
-            System.out.println("Nenhum artista Cadastrado.");
+            System.out.println("Nenhum artista cadastrado.");
             return;
         }
         for (Artista artista : artistas) {
