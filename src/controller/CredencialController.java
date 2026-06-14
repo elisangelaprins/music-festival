@@ -1,7 +1,9 @@
 package controller;
 
+import model.Artista;
 import model.Credencial;
 import model.Staff;
+import model.interfaces.Credenciavel;
 import util.ArquivoUtil;
 import util.LogUtil;
 import util.TipoLog;
@@ -16,11 +18,13 @@ public class CredencialController {
     private static final String ARQUIVO = "credenciais.dat";
     private final CredencialView view;
     private final StaffController staffController;
+    private final ArtistaController artistaController;
     private HashMap<Integer, Credencial> credenciais;
 
-    public CredencialController(CredencialView view, StaffController staffController) {
+    public CredencialController(CredencialView view, StaffController staffController, ArtistaController artistaController) {
         this.view = view;
         this.staffController = staffController;
+        this.artistaController = artistaController;
         this.credenciais = new HashMap<>();
 
         try {
@@ -39,24 +43,41 @@ public class CredencialController {
 
     public void cadastrarCredencial() {
         try {
-            staffController.listarStaffs();
-            int idStaff = view.lerStaffId();
-            Staff staff = staffController.buscarPorId(idStaff);
+            int tipoTitular = view.lerTipoTitular();
+            Credenciavel titular;
 
-            if (staff == null) {
+            switch (tipoTitular) {
+                case 1:
+                    staffController.listarStaffs();
+                    int idStaff = view.lerStaffId();
+                    Staff staff = staffController.buscarPorId(idStaff);
+                    titular = staff;
+                    break;
+                case 2:
+                    artistaController.listarArtistas();
+                    int idArtista = view.lerArtistaId();
+                    Artista artista = artistaController.buscarPorId(idArtista);
+                    titular = artista;
+                    break;
+                default:
+                    view.mostrarMensagem("Tipo de titular inválido.");
+                    return;
+            }
+
+            if (titular == null) {
                 return;
             }
 
             String tipoAcesso = view.lerTipoAcesso();
-            String codigo = staff.gerarCredencial();
+            String codigo = titular.gerarCredencial();
 
             for (Credencial c : credenciais.values()) {
                 if (c.getCodigo().equalsIgnoreCase(codigo)) {
-                    throw new IllegalArgumentException("Esse staff já possui credencial!");
+                    throw new IllegalArgumentException("Esse titular já possui credencial!");
                 }
             }
 
-            Credencial nova = new Credencial(codigo, tipoAcesso, staff);
+            Credencial nova = new Credencial(codigo, tipoAcesso, titular);
 
             credenciais.put(nova.getId(), nova);
 
