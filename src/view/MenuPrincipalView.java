@@ -403,7 +403,7 @@ public class MenuPrincipalView {
     }
 
     private void menuProposta() {
-        int opcao = 90;
+        int opcao = -1;
         do {
             try {
 
