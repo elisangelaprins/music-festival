@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.InputMismatchException;
 
 public class PropostaController {
     private static final String ARQUIVO = "propostas.dat";
@@ -70,6 +71,9 @@ public class PropostaController {
         } catch (IllegalArgumentException e) {
             LogUtil.log(TipoLog.ERRO, "Erro de validação: " + e.getMessage());
             view.mostrarMensagem("Erro: " + e.getMessage());
+        } catch (InputMismatchException e) {
+            LogUtil.log(TipoLog.ERRO, "Falha ao cadastrar proposta: Valor inserido inválido.");
+            view.mostrarMensagem("Erro: O valor inserido não é válido.");
         }
     }
 
@@ -91,13 +95,14 @@ public class PropostaController {
     }
 
     public void alterarProposta() {
-        listarPropostas();
-        int id = view.lerId();
-        Proposta proposta = buscarPorId(id);
-
-        if (proposta == null) return;
-
         try {
+            listarPropostas();
+            int id = view.lerId();
+            Proposta proposta = buscarPorId(id);
+
+            if (proposta == null) return;
+
+
             String titulo = view.lerTitulo();
             proposta.setTitulo(titulo);
 
@@ -127,21 +132,30 @@ public class PropostaController {
         } catch (IllegalArgumentException e) {
             LogUtil.log(TipoLog.ERRO, "Erro ao alterar proposta: " + e.getMessage());
             view.mostrarMensagem("Erro: " + e.getMessage());
+        } catch (InputMismatchException e) {
+            LogUtil.log(TipoLog.ERRO, "Falha ao alterar proposta: Valor inserido inválido.");
+            view.mostrarMensagem("Erro: O valor inserido não é válido.");
         }
     }
 
     public void removerProposta() {
-        listarPropostas();
-        int id = view.lerId();
-        Proposta proposta = buscarPorId(id);
+        try {
 
-        if (proposta == null) return;
+            listarPropostas();
+            int id = view.lerId();
+            Proposta proposta = buscarPorId(id);
 
-        propostas.remove(id);
-        ArquivoUtil.salvarArquivo(propostas, ARQUIVO);
+            if (proposta == null) return;
 
-        LogUtil.log(TipoLog.INFO, "Proposta removida: " + proposta.getTitulo());
-        view.mostrarMensagem("Proposta excluída com sucesso!");
+            propostas.remove(id);
+            ArquivoUtil.salvarArquivo(propostas, ARQUIVO);
+
+            LogUtil.log(TipoLog.INFO, "Proposta removida: " + proposta.getTitulo());
+            view.mostrarMensagem("Proposta excluída com sucesso!");
+        } catch (InputMismatchException e) {
+            LogUtil.log(TipoLog.ERRO, "Falha ao remover proposta: Valor inserido inválido.");
+            view.mostrarMensagem("Erro: O valor inserido não é válido.");
+        }
     }
 }
 
