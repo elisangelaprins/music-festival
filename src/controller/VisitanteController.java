@@ -8,10 +8,7 @@ import util.LogUtil;
 import util.TipoLog;
 import view.VisitanteView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class VisitanteController {
     private static final String ARQUIVO = "visitantes.dat";
@@ -64,6 +61,9 @@ public class VisitanteController {
             LogUtil.log(TipoLog.ERRO, "Falha ao cadastrar visitante: " + e.getMessage());
 
             view.mostrarMsg("Erro ao cadastrar visitante: " + e.getMessage());
+        } catch (InputMismatchException e) {
+            view.mostrarMsg("Insira um valor válido.");
+            view.limparBuffer();
         }
     }
 
@@ -76,40 +76,47 @@ public class VisitanteController {
     }
 
     public void buscarPorDocumento() {
-        boolean encontrado = false;
-        TipoDocumento tipoDocumento = view.lerTipoDocumento();
-        String documento = view.lerDocumento(tipoDocumento);
+        try {
+            boolean encontrado = false;
+            TipoDocumento tipoDocumento = view.lerTipoDocumento();
+            String documento = view.lerDocumento(tipoDocumento);
 
-        if (visitantes.isEmpty()) {
-            System.out.println("Nenhum visitante encontrado.");
-            return;
-        }
-        for (Visitante v : visitantes.values()) {
-            if (v.getDocumento().equalsIgnoreCase(documento)) {
-                encontrado = true;
-                v.exibirDetalhes();
+            if (visitantes.isEmpty()) {
+                System.out.println("Nenhum visitante encontrado.");
+                return;
             }
-        }
-        if (!encontrado) {
-            view.mostrarMsg("Visitante de " +tipoDocumento+ ": " +documento+ " não foi encontrado.");
-        }
+            for (Visitante v : visitantes.values()) {
+                if (v.getDocumento().equalsIgnoreCase(documento)) {
+                    encontrado = true;
+                    v.exibirDetalhes();
+                }
+            }
+            if (!encontrado) {
+                view.mostrarMsg("Visitante de " +tipoDocumento+ ": " +documento+ " não foi encontrado.");
+            }
 
-        LogUtil.log(TipoLog.INFO, "Busca por visitante realizada: " +tipoDocumento+ " " +documento);
+            LogUtil.log(TipoLog.INFO, "Busca por visitante realizada: " +tipoDocumento+ " " +documento);
+        } catch (InputMismatchException e) {
+            view.mostrarMsg("Insira um valor válido.");
+            view.limparBuffer();
+        } catch (IllegalArgumentException e) {
+            view.mostrarMsg("Erro na busca: " +e.getMessage());
+        }
     }
 
     public void alterarVisitante() {
-        listarVisitantes();
-        int id = view.lerId();
-        view.limparBuffer();
-
-        Visitante visitante = visitantes.get(id);
-
-        if (visitante == null) {
-            view.mostrarMsg("Visitante de id " +id+ " não encontrado.");
-            return;
-        }
-
         try {
+            listarVisitantes();
+            int id = view.lerId();
+            view.limparBuffer();
+
+            Visitante visitante = visitantes.get(id);
+
+            if (visitante == null) {
+                view.mostrarMsg("Visitante de id " +id+ " não encontrado.");
+                return;
+            }
+
             String nome =  view.lerNome();
             visitante.setNome(nome);
             String email = view.lerEmail();
@@ -126,26 +133,35 @@ public class VisitanteController {
             LogUtil.log(TipoLog.ERRO, "Falha ao alterar visitante: " + e.getMessage());
 
             view.mostrarMsg("Erro: " +e.getMessage());
+        } catch (InputMismatchException e) {
+            view.mostrarMsg("Insira um valor válido.");
+            view.limparBuffer();
         }
     }
 
     public void removerVisitante() {
-        listarVisitantes();
-        int id = view.lerId();
-        view.limparBuffer();
-        Visitante visitante = visitantes.get(id);
+        try {
+            listarVisitantes();
+            int id = view.lerId();
+            view.limparBuffer();
+            Visitante visitante = visitantes.get(id);
 
-        if (visitante == null) {
-            view.mostrarMsg("Visitante de id " +id+ " não encontrado.");
-            return;
+            if (visitante == null) {
+                view.mostrarMsg("Visitante de id " +id+ " não encontrado.");
+                return;
+            }
+
+            visitantes.remove(id);
+
+            ArquivoUtil.salvarArquivo(visitantes, ARQUIVO);
+
+            LogUtil.log(TipoLog.INFO, "Visitante removido:  " + visitante.getNome());
+
+            view.mostrarMsg("Visitante removido com sucesso!");
+        } catch (InputMismatchException e) {
+            view.mostrarMsg("Insira um valor válido.");
+            view.limparBuffer();
         }
 
-        visitantes.remove(id);
-
-        ArquivoUtil.salvarArquivo(visitantes, ARQUIVO);
-
-        LogUtil.log(TipoLog.INFO, "Visitante removido:  " + visitante.getNome());
-
-        view.mostrarMsg("Visitante removido com sucesso!");
     }
 }

@@ -189,39 +189,44 @@ public class MenuPrincipalView {
     }
 
     private void menuVisitante() {
-        int opcao;
+        int opcao = 90;
         do {
-            System.out.println("=== VISITANTES ===");
-            System.out.println("1 - Cadastrar visitante");
-            System.out.println("2 - Listar visitantes");
-            System.out.println("3 - Buscar visitante pelo documento");
-            System.out.println("4 - Alterar visitante");
-            System.out.println("5 - Remover visitante");
-            System.out.println("0 - Voltar ao menu inicial");
-            opcao = lerOpcao();
-            limparBuffer();
+            try {
+                System.out.println("=== VISITANTES ===");
+                System.out.println("1 - Cadastrar visitante");
+                System.out.println("2 - Listar visitantes");
+                System.out.println("3 - Buscar visitante pelo documento");
+                System.out.println("4 - Alterar visitante");
+                System.out.println("5 - Remover visitante");
+                System.out.println("0 - Voltar ao menu inicial");
+                opcao = lerOpcao();
+                limparBuffer();
 
-            switch (opcao) {
-                case 1:
-                    visitanteController.cadastrarVisitante();
-                    break;
-                case 2:
-                    visitanteController.listarVisitantes();
-                    break;
-                case 3:
-                    visitanteController.buscarPorDocumento();
-                    break;
-                case 4:
-                    visitanteController.alterarVisitante();
-                    break;
-                case 5:
-                    visitanteController.removerVisitante();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida.");
-                    break;
+                switch (opcao) {
+                    case 1:
+                        visitanteController.cadastrarVisitante();
+                        break;
+                    case 2:
+                        visitanteController.listarVisitantes();
+                        break;
+                    case 3:
+                        visitanteController.buscarPorDocumento();
+                        break;
+                    case 4:
+                        visitanteController.alterarVisitante();
+                        break;
+                    case 5:
+                        visitanteController.removerVisitante();
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Opção inválida.");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Insira um valor válido.");
+                limparBuffer();
             }
         } while (opcao != 0);
     }
