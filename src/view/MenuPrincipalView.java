@@ -42,7 +42,7 @@ public class MenuPrincipalView {
     public void iniciar() {
         LogUtil.log(TipoLog.INFO, "Sistema iniciado pelo usuário");
 
-        int opcao = 90;
+        int opcao = -1;
         do {
 
             try {
@@ -105,85 +105,95 @@ public class MenuPrincipalView {
     }
 
     private void menuArtista() {
-        int opcao;
+        int opcao = -1;
         do {
-            System.out.println("=== ARTISTAS ===");
-            System.out.println("1 - Cadastrar artista");
-            System.out.println("2 - Listar artistas");
-            System.out.println("3 - Buscar artista pelo Nome");
-            System.out.println("4 - Alterar artista");
-            System.out.println("5 - Remover artista");
-            System.out.println("0 - Voltar ao menu inicial");
-            opcao = lerOpcao();
-            limparBuffer();
-            switch (opcao) {
-                case 1:
-                    artistaController.cadastrarArtista();
-                    break;
-                case 2:
-                    artistaController.listarArtistas();
-                    break;
-                case 3:
-                    artistaController.buscarPorNome();
-                    break;
-                case 4:
-                    artistaController.alterarArtista();
-                    break;
-                case 5:
-                    artistaController.removerArtista();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida");
+            try {
+                System.out.println("=== ARTISTAS ===");
+                System.out.println("1 - Cadastrar artista");
+                System.out.println("2 - Listar artistas");
+                System.out.println("3 - Buscar artista pelo Nome");
+                System.out.println("4 - Alterar artista");
+                System.out.println("5 - Remover artista");
+                System.out.println("0 - Voltar ao menu inicial");
+                opcao = lerOpcao();
+                limparBuffer();
+                switch (opcao) {
+                    case 1:
+                        artistaController.cadastrarArtista();
+                        break;
+                    case 2:
+                        artistaController.listarArtistas();
+                        break;
+                    case 3:
+                        artistaController.buscarPorNome();
+                        break;
+                    case 4:
+                        artistaController.alterarArtista();
+                        break;
+                    case 5:
+                        artistaController.removerArtista();
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                }
+            } catch (InputMismatchException e) {
+                System.out.print("Erro: Insira apenas valores válidos.");
+                limparBuffer();
             }
         } while (opcao != 0);
     }
 
     private void menuApresentacao() {
-        int opcao;
+        int opcao = -1;
         do {
-            System.out.println("=== APRESENTAÇÕES ===");
-            System.out.println("1 - Cadastrar Show");
-            System.out.println("2 - Cadastrar Entrevista");
-            System.out.println("3 - Listar Apresentações");
-            System.out.println("4 - Buscar apresentação por ID");
-            System.out.println("5 - Buscar apresentação pelo Artista");
-            System.out.println("6 - Alterar apresentação");
-            System.out.println("7 - Remover apresentação");
-            System.out.println("8 - Exibir Total de Cachês dos Shows");
-            System.out.println("0 - Voltar ao menu inicial");
-            opcao = lerOpcao();
-            limparBuffer();
-            switch (opcao) {
-                case 1:
-                    apresentacaoController.cadastrarShow();
-                    break;
-                case 2:
-                    apresentacaoController.cadastrarEntrevista();
-                    break;
-                case 3:
-                    apresentacaoController.listarPorTipo();
-                    break;
-                case 4:
-                    apresentacaoController.exibirPorId();
-                    break;
-                case 5:
-                    apresentacaoController.buscarPorArtista();
-                    break;
-                case 6:
-                    apresentacaoController.alterarApresentacao();
-                    break;
-                case 7:
-                    apresentacaoController.removerApresentacao();
-                    break;
-                case 8:
-                    apresentacaoController.mostrarTotalCaches();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida");
+            try {
+                System.out.println("=== APRESENTAÇÕES ===");
+                System.out.println("1 - Cadastrar Show");
+                System.out.println("2 - Cadastrar Entrevista");
+                System.out.println("3 - Listar Apresentações");
+                System.out.println("4 - Buscar apresentação por ID");
+                System.out.println("5 - Buscar apresentação pelo Artista");
+                System.out.println("6 - Alterar apresentação");
+                System.out.println("7 - Remover apresentação");
+                System.out.println("8 - Exibir Total de Cachês dos Shows");
+                System.out.println("0 - Voltar ao menu inicial");
+                opcao = lerOpcao();
+                limparBuffer();
+                switch (opcao) {
+                    case 1:
+                        apresentacaoController.cadastrarShow();
+                        break;
+                    case 2:
+                        apresentacaoController.cadastrarEntrevista();
+                        break;
+                    case 3:
+                        apresentacaoController.listarPorTipo();
+                        break;
+                    case 4:
+                        apresentacaoController.exibirPorId();
+                        break;
+                    case 5:
+                        apresentacaoController.buscarPorArtista();
+                        break;
+                    case 6:
+                        apresentacaoController.alterarApresentacao();
+                        break;
+                    case 7:
+                        apresentacaoController.removerApresentacao();
+                        break;
+                    case 8:
+                        apresentacaoController.mostrarTotalCaches();
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                }
+            } catch (InputMismatchException e) {
+                System.out.print("Erro: Insira apenas valores válidos.");
+                limparBuffer();
             }
         } while (opcao != 0);
     }
@@ -397,34 +407,34 @@ public class MenuPrincipalView {
         do {
             try {
 
-            System.out.println("\n=== PROPOSTAS DE PATROCÍNIO ===");
-            System.out.println("1 - Cadastrar proposta");
-            System.out.println("2 - Listar propostas");
-            System.out.println("3 - Alterar proposta");
-            System.out.println("4 - Remover proposta");
-            System.out.println("0 - Voltar ao menu inicial");
+                System.out.println("\n=== PROPOSTAS DE PATROCÍNIO ===");
+                System.out.println("1 - Cadastrar proposta");
+                System.out.println("2 - Listar propostas");
+                System.out.println("3 - Alterar proposta");
+                System.out.println("4 - Remover proposta");
+                System.out.println("0 - Voltar ao menu inicial");
 
-            opcao = lerOpcao();
-            limparBuffer();
+                opcao = lerOpcao();
+                limparBuffer();
 
-            switch (opcao) {
-                case 1:
-                    propostaController.cadastrarProposta();
-                    break;
-                case 2:
-                    propostaController.listarPropostas();
-                    break;
-                case 3:
-                    propostaController.alterarProposta();
-                    break;
-                case 4:
-                    propostaController.removerProposta();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida");
-            }
+                switch (opcao) {
+                    case 1:
+                        propostaController.cadastrarProposta();
+                        break;
+                    case 2:
+                        propostaController.listarPropostas();
+                        break;
+                    case 3:
+                        propostaController.alterarProposta();
+                        break;
+                    case 4:
+                        propostaController.removerProposta();
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                }
             } catch (InputMismatchException e) {
                 System.out.println("O valor inserido não é válido.");
                 limparBuffer();
