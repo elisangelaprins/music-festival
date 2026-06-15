@@ -139,7 +139,7 @@ public class MenuPrincipalView {
                         System.out.println("Opção inválida");
                 }
             } catch (InputMismatchException e) {
-                System.out.print("Erro: Insira apenas valores válidos.");
+                System.out.println("Erro: Insira apenas valores válidos.");
                 limparBuffer();
             }
         } while (opcao != 0);
@@ -192,7 +192,7 @@ public class MenuPrincipalView {
                         System.out.println("Opção inválida");
                 }
             } catch (InputMismatchException e) {
-                System.out.print("Erro: Insira apenas valores válidos.");
+                System.out.println("Erro: Insira apenas valores válidos.");
                 limparBuffer();
             }
         } while (opcao != 0);
