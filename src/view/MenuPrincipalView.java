@@ -289,7 +289,7 @@ public class MenuPrincipalView {
     }
 
     private void menuStaff() {
-        int opcao = 90;
+        int opcao = -1;
         do {
             try {
                 System.out.println("=== STAFF ===");
@@ -326,7 +326,7 @@ public class MenuPrincipalView {
     }
 
     private void menuCredencial() {
-        int opcao = 90;
+        int opcao = -1;
         do {
             try {
                 System.out.println("=== CREDENCIAIS ===");
