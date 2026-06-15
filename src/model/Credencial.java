@@ -2,30 +2,26 @@ package model;
 
 import java.io.Serializable;
 import model.abstratas.Pessoa;
+import model.enums.TipoAcesso;
 import model.interfaces.Credenciavel;
 
 public class Credencial implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int id;
+    private final int id;
     private static int contadorId = 1;
     private String codigo;
-    private String tipoAcesso;
+    private TipoAcesso tipoAcesso;
     private Credenciavel titular;
 
-    public Credencial(String codigo, String tipoAcesso, Credenciavel titular) {
+    public Credencial(String codigo, TipoAcesso tipoAcesso, Credenciavel titular) {
         setCodigo(codigo);
         setTipoAcesso(tipoAcesso);
         setTitular(titular);
         this.id = contadorId++;
     }
 
-    public Credencial(int id, String codigo, String tipoAcesso, Credenciavel titular) {
-        setId(id);
-        setCodigo(codigo);
-        setTipoAcesso(tipoAcesso);
-        setTitular(titular);
-
+    public static void atualizarContador(int id) {
         if (id >= contadorId) {
             contadorId = id + 1;
         }
@@ -33,13 +29,6 @@ public class Credencial implements Serializable {
 
     public int getId() {
         return id;
-    }
-
-    private void setId(int id) {
-        if (id <= 0) {
-            throw new IllegalArgumentException("ID inválido.");
-        }
-        this.id = id;
     }
 
     public String getCodigo() {
@@ -53,12 +42,12 @@ public class Credencial implements Serializable {
         this.codigo = codigo;
     }
 
-    public String getTipoAcesso() {
+    public TipoAcesso getTipoAcesso() {
         return tipoAcesso;
     }
 
-    public void setTipoAcesso(String tipoAcesso) {
-        if (tipoAcesso == null || tipoAcesso.isEmpty()) {
+    public void setTipoAcesso(TipoAcesso tipoAcesso) {
+        if (tipoAcesso == null) {
             throw new IllegalArgumentException("Tipo de acesso não pode ser vazio.");
         }
         this.tipoAcesso = tipoAcesso;
