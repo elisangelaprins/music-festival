@@ -17,12 +17,6 @@ public class Staff extends Pessoa implements Credenciavel, Serializable {
         setAreaAtuacao(areaAtuacao);
     }
 
-    public Staff(int id, String nome, TipoDocumento tipoDocumento, String documento, String cargo, String areaAtuacao) {
-        super(id, nome, tipoDocumento, documento);
-        setCargo(cargo);
-        setAreaAtuacao(areaAtuacao);
-    }
-
     public String getCargo() {
         return cargo;
     }
@@ -47,7 +41,7 @@ public class Staff extends Pessoa implements Credenciavel, Serializable {
 
     @Override
     public String getTipo() {
-        return "Staff";
+        return "STAFF";
     }
 
     @Override

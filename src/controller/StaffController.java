@@ -1,15 +1,13 @@
 package controller;
 
 import model.Staff;
+import model.abstratas.Pessoa;
 import model.enums.TipoDocumento;
 import util.ArquivoUtil;
 import util.LogUtil;
 import util.TipoLog;
 import view.StaffView;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class StaffController {
     private static final String ARQUIVO = "staff.dat";
@@ -25,6 +23,9 @@ public class StaffController {
 
             if (carregado != null) {
                 this.staffs = (HashMap<Integer, Staff>) carregado;
+                for (Staff s : this.staffs.values()) {
+                    Pessoa.atualizarContador(s.getId());
+                }
             }
 
             LogUtil.log(TipoLog.INFO, "Arquivo de staff carregado com sucesso.");
@@ -61,6 +62,10 @@ public class StaffController {
         } catch (IllegalArgumentException e) {
             LogUtil.log(TipoLog.ERRO, "Falha ao cadastrar staff: " + e.getMessage());
             view.mostrarMensagem("Erro: " + e.getMessage());
+        } catch (InputMismatchException e) {
+            LogUtil.log(TipoLog.ERRO, "Entrada inválida ao cadastrar staff.");
+            view.mostrarMensagem("Erro: digite um valor numérico válido.");
+            view.limparBuffer();
         }
     }
 
@@ -76,6 +81,7 @@ public class StaffController {
         Staff staff = staffs.get(id);
 
         if (staff == null) {
+            LogUtil.log(TipoLog.AVISO, "Staff não encontrado. ID: " + id);
             view.mostrarMensagem("Staff não encontrado.");
         }
 

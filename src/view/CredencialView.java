@@ -1,6 +1,7 @@
 package view;
 
 import model.Credencial;
+import model.enums.TipoAcesso;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,9 +20,25 @@ public class CredencialView {
         scanner.nextLine();
     }
 
-    public String lerTipoAcesso() {
-        System.out.println("Informe o tipo de acesso (ex: Total, Backstage, Geral): ");
-        return scanner.nextLine();
+    public TipoAcesso lerTipoAcesso() {
+        System.out.println("Informe o tipo de acesso:");
+        System.out.println("1 - Total");
+        System.out.println("2 - Backstage");
+        System.out.println("3 - Geral");
+        System.out.print("Escolha: ");
+
+        int opcao = scanner.nextInt();
+        limparBuffer();
+        switch (opcao) {
+            case 1:
+                return TipoAcesso.TOTAL;
+            case 2:
+                return TipoAcesso.BACKSTAGE;
+            case 3:
+                return TipoAcesso.GERAL;
+            default:
+                throw new IllegalArgumentException("Opção inválida.");
+        }
     }
 
     public int lerTipoTitular() {

@@ -3,15 +3,13 @@ package controller;
 import model.Artista;
 import model.Credencial;
 import model.Staff;
+import model.enums.TipoAcesso;
 import model.interfaces.Credenciavel;
 import util.ArquivoUtil;
 import util.LogUtil;
 import util.TipoLog;
 import view.CredencialView;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CredencialController {
 
@@ -32,6 +30,9 @@ public class CredencialController {
 
             if (carregado != null) {
                 this.credenciais = (HashMap<Integer, Credencial>) carregado;
+                for (Credencial c : this.credenciais.values()) {
+                    Credencial.atualizarContador(c.getId());
+                }
             }
 
             LogUtil.log(TipoLog.INFO, "Arquivo de credenciais carregado com sucesso.");
@@ -68,7 +69,7 @@ public class CredencialController {
                 return;
             }
 
-            String tipoAcesso = view.lerTipoAcesso();
+            TipoAcesso tipoAcesso = view.lerTipoAcesso();
             String codigo = titular.gerarCredencial();
 
             for (Credencial c : credenciais.values()) {
@@ -90,6 +91,10 @@ public class CredencialController {
         } catch (IllegalArgumentException e) {
             LogUtil.log(TipoLog.ERRO, "Falha ao cadastrar credencial: " + e.getMessage());
             view.mostrarMensagem("Erro: " + e.getMessage());
+        } catch (InputMismatchException e) {
+            LogUtil.log(TipoLog.ERRO, "Entrada inválida ao cadastrar credencial.");
+            view.mostrarMensagem("Erro: digite um valor numérico válido.");
+            view.limparBuffer();
         }
     }
 
@@ -106,6 +111,7 @@ public class CredencialController {
         Credencial credencial = credenciais.get(id);
 
         if (credencial == null) {
+            LogUtil.log(TipoLog.AVISO, "Credencial não encontrada. ID: " + id);
             view.mostrarMensagem("Credencial não encontrada.");
         }
 
@@ -122,7 +128,7 @@ public class CredencialController {
         }
 
         try {
-            String tipoAcesso = view.lerTipoAcesso();
+            TipoAcesso tipoAcesso = view.lerTipoAcesso();
             credencial.setTipoAcesso(tipoAcesso);
 
             ArquivoUtil.salvarArquivo(credenciais, ARQUIVO);

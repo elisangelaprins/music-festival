@@ -45,9 +45,7 @@ public class StaffView {
 
     public String lerDocumento(TipoDocumento tipoDocumento) {
         System.out.print("Informe o número do documento: ");
-        String documento = scanner.nextLine();
-        tipoDocumento.validar(documento);
-        return documento;
+        return scanner.nextLine();
     }
 
     public String lerCargo() {

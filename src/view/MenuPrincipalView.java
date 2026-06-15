@@ -289,65 +289,75 @@ public class MenuPrincipalView {
     }
 
     private void menuStaff() {
-        int opcao;
+        int opcao = 90;
         do {
-            System.out.println("=== STAFF ===");
-            System.out.println("1 - Cadastrar staff");
-            System.out.println("2 - Listar staffs");
-            System.out.println("3 - Alterar staff");
-            System.out.println("4 - Remover staff");
-            System.out.println("0 - Voltar ao menu inicial");
-            opcao = lerOpcao();
-            limparBuffer();
-            switch (opcao) {
-                case 1:
-                    staffController.cadastrarStaff();
-                    break;
-                case 2:
-                    staffController.listarStaffs();
-                    break;
-                case 3:
-                    staffController.alterarStaff();
-                    break;
-                case 4:
-                    staffController.removerStaff();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida");
+            try {
+                System.out.println("=== STAFF ===");
+                System.out.println("1 - Cadastrar staff");
+                System.out.println("2 - Listar staffs");
+                System.out.println("3 - Alterar staff");
+                System.out.println("4 - Remover staff");
+                System.out.println("0 - Voltar ao menu inicial");
+                opcao = lerOpcao();
+                limparBuffer();
+                switch (opcao) {
+                    case 1:
+                        staffController.cadastrarStaff();
+                        break;
+                    case 2:
+                        staffController.listarStaffs();
+                        break;
+                    case 3:
+                        staffController.alterarStaff();
+                        break;
+                    case 4:
+                        staffController.removerStaff();
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("O valor inserido não é válido.");
+                limparBuffer();
             }
         } while (opcao != 0);
     }
 
     private void menuCredencial() {
-        int opcao;
+        int opcao = 90;
         do {
-            System.out.println("=== CREDENCIAIS ===");
-            System.out.println("1 - Cadastrar credencial");
-            System.out.println("2 - Listar credenciais");
-            System.out.println("3 - Alterar credencial");
-            System.out.println("4 - Remover credencial");
-            System.out.println("0 - Voltar ao menu inicial");
-            opcao = lerOpcao();
-            limparBuffer();
-            switch (opcao) {
-                case 1:
-                    credencialController.cadastrarCredencial();
-                    break;
-                case 2:
-                    credencialController.listarCredenciais();
-                    break;
-                case 3:
-                    credencialController.alterarCredencial();
-                    break;
-                case 4:
-                    credencialController.removerCredencial();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida");
+            try {
+                System.out.println("=== CREDENCIAIS ===");
+                System.out.println("1 - Cadastrar credencial");
+                System.out.println("2 - Listar credenciais");
+                System.out.println("3 - Alterar credencial");
+                System.out.println("4 - Remover credencial");
+                System.out.println("0 - Voltar ao menu inicial");
+                opcao = lerOpcao();
+                limparBuffer();
+                switch (opcao) {
+                    case 1:
+                        credencialController.cadastrarCredencial();
+                        break;
+                    case 2:
+                        credencialController.listarCredenciais();
+                        break;
+                    case 3:
+                        credencialController.alterarCredencial();
+                        break;
+                    case 4:
+                        credencialController.removerCredencial();
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("O valor inserido não é válido.");
+                limparBuffer();
             }
         } while (opcao != 0);
     }
