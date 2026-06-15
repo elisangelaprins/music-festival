@@ -272,6 +272,7 @@ public class IngressoController {
             view.mostrarMsg("Erro: " +e.getMessage());
         } catch (InputMismatchException e) {
             view.mostrarMsg("Insira um valor válido.");
+            view.limparBuffer();
         }
     }
 
@@ -297,6 +298,7 @@ public class IngressoController {
             view.mostrarMsg("Ingresso removido com sucesso!");
         } catch (InputMismatchException e) {
             view.mostrarMsg("Insira um valor válido");
+            view.limparBuffer();
         }
     }
 
